@@ -1,0 +1,52 @@
+﻿@model TestAPI.Models.Customer
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ValidationSummary()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "FirstName" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @id = "LastName" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+
+    @Html.HiddenFor(m => m.CustomerId)
+    <button class="btn btn-primary" id="Submit" onclick="CreateUser">Save</button>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            document.getElementById("Submit").onclick = function () { CreateUser() };
+
+            function CreateUser() {
+                var firstName = document.getElementById("FirstName").value;
+                var lastName = document.getElementById("LastName").value;
+
+                var Customer = {
+                    Id: 0,
+                    FirstName: firstName,
+                    LastName: lastName
+                };
+
+                $.ajax({
+                    url: "/api/customers",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(Customer),
+                    success: function (req, succ) { console.log(succ); },
+                });
+            }
+        });
+    </script>
+}

@@ -51,6 +51,17 @@ namespace TestAPI.Controllers.API
             return Ok(customer);
         }
 
+        public IHttpActionResult GetCustomers(string lastname)
+        {
+            var customers = _context.Customers.ToList().Where(c => c.LastName == lastname);
+
+            if (customers == null)
+                return NotFound();
+
+
+            return Ok(customers);
+        }
+
         public IHttpActionResult CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid || customer == null)

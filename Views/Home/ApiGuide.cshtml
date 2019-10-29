@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Commands</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Url</th>
+            <th scope="col">Parameters</th>
+            <th scope="col">Return type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Get all customers  *@
+        <tr>
+            <th>
+                <text>
+                    GET
+                </text>
+            </th>
+            <th>
+                <text>
+                    Get all customers in database.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/customers
+                </text>
+            </th>
+            <th>
+                <text>
+                    None.
+                </text>
+            </th>
+            <th>
+                <text>
+                    JSON.
+                </text>
+            </th>
+        </tr>
+        @* GET specific customer *@
+        <tr>
+            <th>
+                <text>
+                    GET
+                </text>
+            </th>
+            <th>
+                <text>
+                    Get customer using Customer Id as integer.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/customers/{id}
+                </text>
+            </th>
+            <th>
+                <text>
+                    Id as Integer.
+                </text>
+            </th>
+            <th>
+                <text>
+                    JSON.
+                </text>
+            </th>
+        </tr>
+        @* GET customers that have a specific last name. *@
+        <tr>
+            <th>
+                <text>
+                    GET
+                </text>
+            </th>
+            <th>
+                <text>
+                    Get customer or customers with specific last name as string.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/customers?lastName={string}
+                </text>
+            </th>
+            <th>
+                <text>
+                    None.
+                </text>
+            </th>
+            <th>
+                <text>
+                    JSON.
+                </text>
+            </th>
+        </tr>
+        @* POST a new customer *@
+        <tr>
+            <th>
+                <text>
+                    POST
+                </text>
+            </th>
+            <th>
+                <text>
+                    Create a new customer with required parameters in JSON.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/Customers/
+                </text>
+            </th>
+            <th>
+                <text>
+                    Example JSON:
+
+                    {
+                    "FirstName": "John",
+                    "LastName": "Carpenter"
+                    }
+                </text>
+            </th>
+            <th>
+                <text>
+                    Returns status code.
+                </text>
+            </th>
+        </tr>
+        @* PUT (Update) a new customer *@
+        <tr>
+            <th>
+                <text>
+                    PUT
+                </text>
+            </th>
+            <th>
+                <text>
+                    Update an existing customer with new details. Requires correct customer Id in URL and JSON as parameter.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/Customers/{Id}
+                </text>
+            </th>
+            <th>
+                <text>
+                    Example JSON:
+
+                    {
+                    "FirstName": "John",
+                    "LastName": "Carpenter"
+                    }
+                </text>
+            </th>
+            <th>
+                <text>
+                    Returns status code.
+                </text>
+            </th>
+        </tr>
+        @* DELETE a new customer *@
+        <tr>
+            <th>
+                <text>
+                    DELETE
+                </text>
+            </th>
+            <th>
+                <text>
+                    Delete existing customer. Requires a customer Id in the URL.
+                </text>
+            </th>
+            <th>
+                <text>
+                    https://experimentalapitest.azurewebsites.net/api/Customers/{Id}
+                </text>
+            </th>
+            <th>
+                <text>
+                    None.
+                </text>
+            </th>
+            <th>
+                <text>
+                    Returns status code.
+                </text>
+            </th>
+        </tr>
+    </tbody>
+</table>

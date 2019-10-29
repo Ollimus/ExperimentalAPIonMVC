@@ -21,6 +21,11 @@ namespace TestAPI.Controllers
             return View();
         }
 
+        public ActionResult ApiGuide()
+        {
+            return View();
+        }
+
         public ActionResult NewCustomer()
         {
             Customer customer = new Customer();

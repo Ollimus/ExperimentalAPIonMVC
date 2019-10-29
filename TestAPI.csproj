@@ -212,7 +212,6 @@
     <Content Include="Views\Home\NewCustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,9 @@
     </tbody>
 </table>
 
+    @Html.ActionLink("New Customer", "NewCustomer", null, new { @class = "btn btn-primary center-block" })
+
+
 
 @section scripts
 {
@@ -30,6 +33,12 @@
                 $.ajax({
                     url: "/api/customers",
                     success: function (result) {
+
+                        //Intentionally using "inefficient" way to handle creation,
+                        //the purpose is later to compare the speed of this type of data handling
+                        //vs
+                        //built in library designed for UX and large data pools.
+
                         const customerelements = document.getElementById("Customers");
 
                         while (customerelements.firstChild) {
@@ -44,15 +53,6 @@
                                 '<td><a href="Edit/' + value.CustomerId + '">View</a></td>' +
                                 '<td><button class="js-delete" data-customer-id="' + value.CustomerId + '">Delete</button></td>');
                         })
-
-                        //jQuery.each(result, function (index, value) {
-                        //    $(Customers).append(
-                        //        '<tr><td>' + value.CustomerId + '</td>' +
-                        //        '<td>' + value.FirstName + '</td>' +
-                        //        '<td>' + value.LastName + '</td>' +
-                        //        '<td><a href="Edit/' + value.CustomerId + '">View</a></td>' +
-                        //        '<td><button class="js-delete" data-customer-id="' + value.CustomerId + '">Delete</button></td>');
-                        //})
 
 
                         $("#Customers .js-delete").on("click", function () {
@@ -69,26 +69,6 @@
                     }
                 })
             }
-
-
-
-            //$("#Device").DataTable({
-            //    ajax: {
-            //        url: "/api/customers",
-            //        dataSrc: ""
-            //    },
-            //    columns: [
-            //        {
-            //            data: "Id"
-            //        },
-            //        {
-            //            data: "FirstNa",
-            //        },
-            //        {
-            //            data: "UserId",
-            //        },
-            //    ]
-            //});
         });
     </script>
 }

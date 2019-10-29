@@ -51,6 +51,7 @@ namespace TestAPI.Controllers.API
             return Ok(customer);
         }
 
+        [HttpGet]
         public IHttpActionResult GetCustomers(string lastname)
         {
             var customers = _context.Customers.ToList().Where(c => c.LastName == lastname);
@@ -62,6 +63,7 @@ namespace TestAPI.Controllers.API
             return Ok(customers);
         }
 
+        [HttpPost]
         public IHttpActionResult CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid || customer == null)

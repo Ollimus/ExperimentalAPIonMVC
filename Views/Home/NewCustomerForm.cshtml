@@ -7,6 +7,13 @@
 
 @Html.ValidationSummary()
 
+@{ string functionName = "CreateUser()";}
+
+@if (Model.CustomerId != 0)
+{
+    functionName = "UpdateUser()";
+}
+
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName)
         @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "FirstName" })
@@ -18,8 +25,8 @@
         @Html.ValidationMessageFor(m => m.LastName)
     </div>
 
-    @Html.HiddenFor(m => m.CustomerId)
-    <button class="btn btn-primary" id="Submit" onclick="CreateUser">Save</button>
+    @Html.HiddenFor(m => m.CustomerId, new { @id = "CustomerId" })
+    <button class="btn btn-primary" id="Submit" onclick=@functionName>Save</button>
 
 
 @section scripts
@@ -27,14 +34,13 @@
     <script>
         $(document).ready(function () {
 
-            document.getElementById("Submit").onclick = function () { CreateUser() };
+            document.getElementById("Submit").onclick = function () { @functionName };
 
-            function CreateUser() {
+           function CreateUser() {
                 var firstName = document.getElementById("FirstName").value;
                 var lastName = document.getElementById("LastName").value;
 
                 var Customer = {
-                    Id: 0,
                     FirstName: firstName,
                     LastName: lastName
                 };
@@ -44,7 +50,30 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(Customer),
-                    success: function (req, succ) { console.log(succ); },
+                    success: function () {
+                        window.location.replace("/home/customer");
+                    },
+                });
+            }
+
+            function UpdateUser() {
+                var id = document.getElementById("CustomerId").value;
+                var firstName = document.getElementById("FirstName").value;
+                var lastName = document.getElementById("LastName").value;
+
+                var Customer = {
+                    FirstName: firstName,
+                    LastName: lastName
+                };
+
+                $.ajax({
+                    url: "/api/customers/" + id,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(Customer),
+                    success: function () {
+                        window.location.replace("/home/customer");
+                    },
                 });
             }
         });

@@ -100,13 +100,14 @@ namespace TestAPI.Controllers.API
         [HttpDelete]
         public IHttpActionResult DeleteCustomer(int id)
         {
-            var customerInDB = _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            var customerInDB = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
 
             if (customerInDB == null)
                 return NotFound();
 
             _context.Customers.Remove(customerInDB);
             _context.SaveChanges();
+
             return Ok();
 
         }

@@ -1,8 +1,6 @@
-﻿@{
+@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
 <table class="table">
     <thead>
@@ -18,7 +16,7 @@
     </tbody>
 </table>
 
-    @Html.ActionLink("New Customer", "NewCustomer", null, new { @class = "btn btn-primary center-block" })
+    @Html.ActionLink("New Customer", "CustomerManagement", null, new { @class = "btn btn-primary center-block" })
 
 
 
@@ -50,7 +48,7 @@
                                 '<tr><td>' + value.CustomerId + '</td>' +
                                 '<td>' + value.FirstName + '</td>' +
                                 '<td>' + value.LastName + '</td>' +
-                                '<td><a href="Edit/' + value.CustomerId + '">View</a></td>' +
+                                '<td><a href="CustomerManagement/' + value.CustomerId + '">View</a></td>' +
                                 '<td><button class="js-delete" data-customer-id="' + value.CustomerId + '">Delete</button></td>');
                         })
 

@@ -18,27 +18,27 @@
     <tbody>
         @* Get all customers  *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     GET
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Get all customers in database.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/customers
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     None.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     JSON.
                 </text>
@@ -46,27 +46,27 @@
         </tr>
         @* GET specific customer *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     GET
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Get customer using Customer Id as integer.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/customers/{id}
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
-                    Id as Integer.
+                    None.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     JSON.
                 </text>
@@ -74,27 +74,27 @@
         </tr>
         @* GET customers that have a specific last name. *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     GET
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Get customer or customers with specific last name as string.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/customers?lastName={string}
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     None.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     JSON.
                 </text>
@@ -102,24 +102,24 @@
         </tr>
         @* POST a new customer *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     POST
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Create a new customer with required parameters in JSON.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/Customers/
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
-                    Example JSON:
+                    Example JSON: <br />
 
                     {
                     "FirstName": "John",
@@ -127,7 +127,7 @@
                     }
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Returns status code.
                 </text>
@@ -135,24 +135,24 @@
         </tr>
         @* PUT (Update) a new customer *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     PUT
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Update an existing customer with new details. Requires correct customer Id in URL and JSON as parameter.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/Customers/{Id}
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
-                    Example JSON:
+                    Example JSON:<br />
 
                     {
                     "FirstName": "John",
@@ -160,7 +160,7 @@
                     }
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Returns status code.
                 </text>
@@ -168,27 +168,27 @@
         </tr>
         @* DELETE a new customer *@
         <tr>
-            <th>
+            <th scope="col">
                 <text>
                     DELETE
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Delete existing customer. Requires a customer Id in the URL.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     https://experimentalapitest.azurewebsites.net/api/Customers/{Id}
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     None.
                 </text>
             </th>
-            <th>
+            <th scope="col">
                 <text>
                     Returns status code.
                 </text>

@@ -17,8 +17,18 @@ namespace TestAPI.Models
         
         [MaxLength(100)]
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [MaxLength(100)]
+        [Required]
+        public string City { get; set; }
+
+        [MaxLength(100)]
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public DateTime DateCreated { get; set; }
     }
 }

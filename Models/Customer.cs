@@ -10,21 +10,25 @@ namespace TestAPI.Models
     {
         public int CustomerId { get; set; }
 
-        [MaxLength(100)]
+        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        
-        [MaxLength(100)]
+
+        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [MaxLength(100)]
+        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required]
         public string City { get; set; }
 
-        [MaxLength(100)]
+        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required]
         public string Address { get; set; }
 

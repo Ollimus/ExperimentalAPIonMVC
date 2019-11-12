@@ -159,9 +159,13 @@
     <Compile Include="Migrations\201911061600028_AddingProductsAndBillingsTables.Designer.cs">
       <DependentUpon>201911061600028_AddingProductsAndBillingsTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911121928263_AddingProducerField.cs" />
+    <Compile Include="Migrations\201911121928263_AddingProducerField.Designer.cs">
+      <DependentUpon>201911121928263_AddingProducerField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Billing.cs" />
-    <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911061600028_AddingProductsAndBillingsTables.resx">
       <DependentUpon>201911061600028_AddingProductsAndBillingsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911121928263_AddingProducerField.resx">
+      <DependentUpon>201911121928263_AddingProducerField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

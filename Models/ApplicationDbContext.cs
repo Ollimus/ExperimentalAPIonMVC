@@ -10,7 +10,7 @@ namespace TestAPI.Models
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Billing> Billings { get; set; }
-        public DbSet<Products> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public  ApplicationDbContext()
         {

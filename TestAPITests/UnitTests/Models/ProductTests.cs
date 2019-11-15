@@ -18,7 +18,10 @@ namespace TestAPITests
             {
                 ProductId = 0,
                 Name = "G15 Keyboard",
-                Description = "Logitech"
+                Description = "Gaming keyboard for many uses.",
+                Price = 120,
+                Producer = "Logitech",
+                Stock = 10
             };
 
             var validationContext = new ValidationContext(product, null, null);

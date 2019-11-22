@@ -166,6 +166,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Billing.cs" />
+    <Compile Include="Models\EFCustomerRepository.cs" />
+    <Compile Include="Models\ICustomerRepository.cs" />
+    <Compile Include="Models\MaxTwoDecimalPlaceAllowed.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />

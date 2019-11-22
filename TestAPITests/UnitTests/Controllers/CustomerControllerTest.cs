@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using TestAPI.Controllers;
 
 namespace TestAPITests.UnitTests.Controllers
 {
@@ -8,9 +10,33 @@ namespace TestAPITests.UnitTests.Controllers
     public class CustomerControllerTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Customers_GetViewFromCustomerController_ReturnCorrectViewResult()
         {
+            CustomerController _controller = new CustomerController();
 
+            var result = _controller.Customers() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void CustomerManagement_GetViewFromCustomerController_ReturnNewCustomerFormViewResult()
+        {
+            CustomerController _controller = new CustomerController();
+
+            var result = _controller.CustomerManagement(0) as ViewResult;
+
+            Assert.AreEqual("NewCustomerForm", result.ViewName);
+        }
+
+        [TestMethod]
+        public void CustomerManagement_GetCustomerObject_ReturnCustomerObject()
+        {
+            CustomerController _controller = new CustomerController();
+
+            var result = _controller.CustomerManagement(0) as ViewResult;
+
+            Assert.IsNotNull(result.Model);
         }
     }
 }

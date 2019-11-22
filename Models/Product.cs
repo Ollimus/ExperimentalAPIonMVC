@@ -12,23 +12,24 @@ namespace TestAPI.Models
         [Key]
         public int ProductId { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(2, ErrorMessage = "Minimum of 2 characters.")]
         [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(3, ErrorMessage = "Minimum of 3 characters.")]
         [MaxLength(40, ErrorMessage = "Only 40 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         public string Producer { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(3, ErrorMessage = "Minimum of 3 characters.")]
         [MaxLength(255, ErrorMessage = "Only 255 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
 
         [Required]
         [Range(1, 5000, ErrorMessage = "The price must be between 1 and 5000.")]
+        [MaxTwoDecimalPlaceAllowed(ErrorMessage = "Maximum of two decimal places allowed.")]
         public decimal Price { get; set; }
 
         [Required]

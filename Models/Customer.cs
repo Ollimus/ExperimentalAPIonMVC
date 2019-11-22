@@ -10,24 +10,24 @@ namespace TestAPI.Models
     {
         public int CustomerId { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(2, ErrorMessage = "Minimum of 2 characters.")]
         [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(2, ErrorMessage = "Minimum of 2 characters.")]
         [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(3, ErrorMessage = "Minimum of 3 characters.")]
         [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         public string City { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minumum of 3 characters.")]
+        [MinLength(3, ErrorMessage = "Minimum of 3 characters.")]
         [MaxLength(100, ErrorMessage = "Only 100 characters allowed.")]
         [Required(AllowEmptyStrings = false)]
         public string Address { get; set; }

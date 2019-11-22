@@ -11,7 +11,6 @@ namespace TestAPI.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Terve";
             return View();
         }
 

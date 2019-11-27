@@ -388,5 +388,110 @@ namespace TestAPITests
             Assert.IsFalse(isValid);
             Assert.AreEqual(1, errorMessageCount);
         }
+
+        [TestMethod]
+        public void CreateProduct_StockNegativeValue_ReturnError()
+        {
+            string errorMessage = "Stock must be between 1 and 500.";
+            int errorMessageCount = 0;
+            int testableNumber = -11;
+
+            Product product = new Product()
+            {
+                ProductId = 0,
+                Name = "G15 Gaming Keyboard",
+                Description = "Gaming keyboard for many uses.",
+                Price = 120,
+                Producer = "Logitech",
+                Stock = testableNumber
+            };
+
+            var validationContext = new ValidationContext(product, null, null);
+            var errors = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(product, validationContext, errors, true);
+
+            if (errors.Count > 1)
+                Assert.Fail();
+
+            foreach (var error in errors)
+            {
+                if (errorMessage == error.ErrorMessage)
+                    errorMessageCount++;
+            }
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errorMessageCount);
+        }
+
+        [TestMethod]
+        public void CreateProduct_StockValueOverLimit_ReturnError()
+        {
+            string errorMessage = "Stock must be between 1 and 500.";
+            int errorMessageCount = 0;
+            int testableNumber = 501;
+
+            Product product = new Product()
+            {
+                ProductId = 0,
+                Name = "G15 Gaming Keyboard",
+                Description = "Gaming keyboard for many uses.",
+                Price = 120,
+                Producer = "Logitech",
+                Stock = testableNumber
+            };
+
+            var validationContext = new ValidationContext(product, null, null);
+            var errors = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(product, validationContext, errors, true);
+
+            if (errors.Count > 1)
+                Assert.Fail();
+
+            foreach (var error in errors)
+            {
+                if (errorMessage == error.ErrorMessage)
+                    errorMessageCount++;
+            }
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errorMessageCount);
+        }
+
+        [TestMethod]
+        public void CreateProduct_StockValueIsZero_ReturnError()
+        {
+            string errorMessage = "Stock must be between 1 and 500.";
+            int errorMessageCount = 0;
+            int testableNumber = 0;
+
+            Product product = new Product()
+            {
+                ProductId = 0,
+                Name = "G15 Gaming Keyboard",
+                Description = "Gaming keyboard for many uses.",
+                Price = 120,
+                Producer = "Logitech",
+                Stock = testableNumber
+            };
+
+            var validationContext = new ValidationContext(product, null, null);
+            var errors = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(product, validationContext, errors, true);
+
+            if (errors.Count > 1)
+                Assert.Fail();
+
+            foreach (var error in errors)
+            {
+                if (errorMessage == error.ErrorMessage)
+                    errorMessageCount++;
+            }
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errorMessageCount);
+        }
     }
 }

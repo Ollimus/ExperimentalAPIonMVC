@@ -14,7 +14,6 @@ namespace TestAPI.Models
 
         public  ApplicationDbContext()
         {
-
         }
     }
 }

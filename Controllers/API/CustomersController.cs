@@ -12,56 +12,48 @@ namespace TestAPI.Controllers.API
 {
     public class CustomersController : ApiController
     {
-        private ApplicationDbContext _context;
+        private IUnitOfWork _context;
 
-        public CustomersController()
+        public CustomersController(IUnitOfWork context)
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _context = context;
         }
 
         // GET api/<controller>
         [HttpGet]
         public IHttpActionResult GetCustomers()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Customers.ToList();
 
             if (customers == null)
                 return NotFound();
 
-            //var converted = JsonConvert.SerializeObject(customers, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            //return Ok(converted);
-
             return Ok(customers);
         }
 
-        [HttpGet]
-        // GET api/<Controller>/<Id>
-        public IHttpActionResult GetCustomers(int id)
-        {
-            var customer = _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+        //[HttpGet]
+        //// GET api/<Controller>/<Id>
+        //public IHttpActionResult GetCustomers(int id)
+        //{
+        //    var customer = _customerRepository.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
 
-            if (customer == null)
-                return NotFound();
+        //    if (customer == null)
+        //        return NotFound();
 
-            return Ok(customer);
-        }
+        //    return Ok(customer);
+        //}
 
-        [HttpGet]
-        public IHttpActionResult GetCustomers(string lastname)
-        {
-            var customers = _context.Customers.ToList().Where(c => c.LastName == lastname);
+        //[HttpGet]
+        //public IHttpActionResult GetCustomers(string lastname)
+        //{
+        //    var customers = _customerRepository.Customers.ToList().Where(c => c.LastName == lastname);
 
-            if (customers == null)
-                return NotFound();
+        //    if (customers == null)
+        //        return NotFound();
 
 
-            return Ok(customers);
-        }
+        //    return Ok(customers);
+        //}
 
         [HttpPost]
         public IHttpActionResult CreateCustomer(Customer customer)
@@ -69,47 +61,49 @@ namespace TestAPI.Controllers.API
             if (!ModelState.IsValid || customer == null)
                 return BadRequest();
 
+            customer.DateCreated = DateTime.Today.Date;
+
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
             return Created(new Uri(Request.RequestUri + "/" + customer.CustomerId), customer);
         }
 
-        [HttpPut]
-        public IHttpActionResult UpdateCustomer(int id, Customer customer)
-        {
-            if (!ModelState.IsValid || customer == null)
-                return BadRequest();
+        //[HttpPut]
+        //public IHttpActionResult UpdateCustomer(int id, Customer customer)
+        //{
+        //    if (!ModelState.IsValid || customer == null)
+        //        return BadRequest();
 
-            var existingCustomer = _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+        //    var existingCustomer = _customerRepository.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
 
-            if (existingCustomer == null)
-                return NotFound();
+        //    if (existingCustomer == null)
+        //        return NotFound();
 
-            else
-            {
-                existingCustomer.FirstName = customer.FirstName;
-                existingCustomer.LastName = customer.LastName;
-            }
+        //    else
+        //    {
+        //        existingCustomer.FirstName = customer.FirstName;
+        //        existingCustomer.LastName = customer.LastName;
+        //    }
 
-            _context.SaveChanges();
+        //    _context.SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpDelete]
-        public IHttpActionResult DeleteCustomer(int id)
-        {
-            var customerInDB = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
+        //[HttpDelete]
+        //public IHttpActionResult DeleteCustomer(int id)
+        //{
+        //    var customerInDB = _customerRepository.Customers.SingleOrDefault(c => c.CustomerId == id);
 
-            if (customerInDB == null)
-                return NotFound();
+        //    if (customerInDB == null)
+        //        return NotFound();
 
-            _context.Customers.Remove(customerInDB);
-            _context.SaveChanges();
+        //    //_customerRepository.Customers.Remove(customerInDB)
+        //    _context.SaveChanges();
 
-            return Ok();
+        //    return Ok();
 
-        }
+        //}
     }
 }

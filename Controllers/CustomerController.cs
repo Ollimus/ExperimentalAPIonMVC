@@ -9,16 +9,13 @@ namespace TestAPI.Controllers
 {
     public class CustomerController : Controller
     {
-        private ApplicationDbContext _context;
+        private IUnitOfWork _context;
+        private ICustomerRepository _customerRepository;
 
-        public CustomerController()
+        public CustomerController(IUnitOfWork context, ICustomerRepository customerRepository)
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _context = context;
+            _customerRepository = customerRepository;
         }
 
         public ActionResult Customers()
@@ -30,7 +27,7 @@ namespace TestAPI.Controllers
 
         public ActionResult CustomerManagement(int? id)
         {
-            Customer customer = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
+            Customer customer = _customerRepository.Customers.SingleOrDefault(c => c.CustomerId == id);
 
             if (customer == null)
             {

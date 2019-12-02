@@ -12,11 +12,15 @@ namespace TestAPI.Models
 
         public CustomerRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
-        public IQueryable<Customer> Customers { get { return _context.Customers; } }
+        public IQueryable<Customer> GetCustomers { get { return _context.Customers; } }
+
+        public void Remove (Customer customer) { _context.Customers.Remove(customer); }
 
         public void Add (Customer customer) { _context.Customers.Add(customer); }
+
+        public Customer GetCustomerById (int id) { return _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault(); }
     }
 }

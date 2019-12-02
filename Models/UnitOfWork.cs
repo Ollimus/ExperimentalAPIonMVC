@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TestAPI.Models;
+using TestAPI.Repositories;
 
 namespace TestAPI.Models
 {
@@ -11,13 +12,17 @@ namespace TestAPI.Models
     {
         ApplicationDbContext _context;
         public CustomerRepository Customers { get; set; } //private set
+        public ProductRepository Products { get; set; }
+        public BillingRepository Billings { get; set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Customers = new CustomerRepository(context);
+            Products = new ProductRepository(context);
+            Billings = new BillingRepository(context);
         }
-
+        
         public void SaveChanges()
         {
             _context.SaveChanges();

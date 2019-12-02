@@ -202,9 +202,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Billing.cs" />
-    <Compile Include="Models\CustomerRepository.cs" />
+    <Compile Include="Repositories\BillingRepository.cs" />
+    <Compile Include="Repositories\IBillingRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Models\IUnitOfWork.cs" />
-    <Compile Include="Models\ICustomerRepository.cs" />
+    <Compile Include="Repositories\IProductRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Models\MaxTwoDecimalPlaceAllowed.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -265,7 +269,6 @@
     <Content Include="Views\Home\ApiGuide.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Billing\" />
     <Folder Include="Views\Product\" />

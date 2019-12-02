@@ -7,8 +7,10 @@ namespace TestAPI.Models
 {
     public interface ICustomerRepository
     {
-        IQueryable<Customer> Customers { get; }
+        IQueryable<Customer> GetCustomers { get; }
 
         void Add(Customer customer);
+        void Remove(Customer customer);
+        Customer GetCustomerById(int id);
     }
 }

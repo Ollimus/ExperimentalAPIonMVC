@@ -10,12 +10,10 @@ namespace TestAPI.Controllers
     public class CustomerController : Controller
     {
         private IUnitOfWork _context;
-        private ICustomerRepository _customerRepository;
 
-        public CustomerController(IUnitOfWork context, ICustomerRepository customerRepository)
+        public CustomerController(IUnitOfWork context)
         {
             _context = context;
-            _customerRepository = customerRepository;
         }
 
         public ActionResult Customers()
@@ -27,7 +25,7 @@ namespace TestAPI.Controllers
 
         public ActionResult CustomerManagement(int? id)
         {
-            Customer customer = _customerRepository.Customers.SingleOrDefault(c => c.CustomerId == id);
+            Customer customer = _context.Customers.GetCustomerById((int)id);
 
             if (customer == null)
             {

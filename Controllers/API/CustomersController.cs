@@ -23,7 +23,7 @@ namespace TestAPI.Controllers.API
         [HttpGet]
         public IHttpActionResult GetCustomers()
         {
-            var customers = _context.Customers.Customers.ToList();
+            var customers = _context.Customers.GetCustomers.ToList();
 
             if (customers == null)
                 return NotFound();
@@ -31,29 +31,29 @@ namespace TestAPI.Controllers.API
             return Ok(customers);
         }
 
-        //[HttpGet]
-        //// GET api/<Controller>/<Id>
-        //public IHttpActionResult GetCustomers(int id)
-        //{
-        //    var customer = _customerRepository.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+        [HttpGet]
+        // GET api/<Controller>/<Id>
+        public IHttpActionResult GetCustomers(int id)
+        {
+            var customer = _context.Customers.GetCustomerById(id);
 
-        //    if (customer == null)
-        //        return NotFound();
+            if (customer == null)
+                return NotFound();
 
-        //    return Ok(customer);
-        //}
+            return Ok(customer);
+        }
 
-        //[HttpGet]
-        //public IHttpActionResult GetCustomers(string lastname)
-        //{
-        //    var customers = _customerRepository.Customers.ToList().Where(c => c.LastName == lastname);
+        [HttpGet]
+        public IHttpActionResult GetCustomers(string lastname)
+        {
+            var customers = _context.Customers.GetCustomers.Where(c => c.LastName == lastname).ToList();
 
-        //    if (customers == null)
-        //        return NotFound();
+            if (customers == null)
+                return NotFound();
 
 
-        //    return Ok(customers);
-        //}
+            return Ok(customers);
+        }
 
         [HttpPost]
         public IHttpActionResult CreateCustomer(Customer customer)
@@ -69,41 +69,40 @@ namespace TestAPI.Controllers.API
             return Created(new Uri(Request.RequestUri + "/" + customer.CustomerId), customer);
         }
 
-        //[HttpPut]
-        //public IHttpActionResult UpdateCustomer(int id, Customer customer)
-        //{
-        //    if (!ModelState.IsValid || customer == null)
-        //        return BadRequest();
+        [HttpPut]
+        public IHttpActionResult UpdateCustomer(int id, Customer customer)
+        {
+            if (!ModelState.IsValid || customer == null)
+                return BadRequest();
 
-        //    var existingCustomer = _customerRepository.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            var existingCustomer = _context.Customers.GetCustomerById(id);
 
-        //    if (existingCustomer == null)
-        //        return NotFound();
+            if (existingCustomer == null)
+                return NotFound();
 
-        //    else
-        //    {
-        //        existingCustomer.FirstName = customer.FirstName;
-        //        existingCustomer.LastName = customer.LastName;
-        //    }
+            else
+            {
+                existingCustomer.FirstName = customer.FirstName;
+                existingCustomer.LastName = customer.LastName;
+            }
 
-        //    _context.SaveChanges();
+            _context.SaveChanges();
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
 
-        //[HttpDelete]
-        //public IHttpActionResult DeleteCustomer(int id)
-        //{
-        //    var customerInDB = _customerRepository.Customers.SingleOrDefault(c => c.CustomerId == id);
+        [HttpDelete]
+        public IHttpActionResult DeleteCustomer(int id)
+        {
+            var customerInDB = _context.Customers.GetCustomerById(id);
 
-        //    if (customerInDB == null)
-        //        return NotFound();
+            if (customerInDB == null)
+                return NotFound();
 
-        //    //_customerRepository.Customers.Remove(customerInDB)
-        //    _context.SaveChanges();
+            _context.Customers.Remove(customerInDB);
+            _context.SaveChanges();
 
-        //    return Ok();
-
-        //}
+            return Ok();
+        }
     }
 }

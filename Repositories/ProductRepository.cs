@@ -23,5 +23,4 @@ namespace TestAPI.Repositories
 
             public Product GetProductById(int id) { return _context.Products.Where(p => p.ProductId == id).SingleOrDefault(); }
     }
-    }
 }

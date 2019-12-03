@@ -25,6 +25,9 @@ namespace TestAPI.Controllers
 
         public ActionResult CustomerManagement(int? id)
         {
+            if (id == null)
+                id = 0;
+
             Customer customer = _context.Customers.GetCustomerById((int)id);
 
             if (customer == null)

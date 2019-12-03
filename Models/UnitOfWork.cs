@@ -11,9 +11,9 @@ namespace TestAPI.Models
     public class UnitOfWork : IUnitOfWork
     {
         ApplicationDbContext _context;
-        public CustomerRepository Customers { get; set; } //private set
-        public ProductRepository Products { get; set; }
-        public BillingRepository Billings { get; set; }
+        public ICustomerRepository Customers { get; set; } //private set
+        public IProductRepository Products { get; set; }
+        public IBillingRepository Billings { get; set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {

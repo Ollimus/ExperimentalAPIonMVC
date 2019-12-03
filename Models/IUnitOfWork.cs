@@ -9,9 +9,9 @@ namespace TestAPI.Models
 {
     public interface IUnitOfWork
     {
-        CustomerRepository Customers { get; set; }
-        BillingRepository Billings { get; set; }
-        ProductRepository Products { get; set; }
+        ICustomerRepository Customers { get; set; }
+        IBillingRepository Billings { get; set; }
+        IProductRepository Products { get; set; }
 
         void SaveChanges();
     }

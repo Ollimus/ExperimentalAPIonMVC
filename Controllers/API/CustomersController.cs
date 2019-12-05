@@ -31,8 +31,8 @@ namespace TestAPI.Controllers.API
             return Ok(customers);
         }
 
-        [HttpGet]
         // GET api/<Controller>/<Id>
+        [HttpGet]
         public IHttpActionResult GetCustomers(int id)
         {
             var customer = _context.Customers.GetCustomerById(id);
@@ -43,18 +43,18 @@ namespace TestAPI.Controllers.API
             return Ok(customer);
         }
 
-        [HttpGet]
-        public IHttpActionResult GetCustomers(string lastname)
-        {
-            var customers = _context.Customers.GetCustomers.Where(c => c.LastName == lastname).ToList();
+        //[HttpGet]
+        //public IHttpActionResult GetCustomers(string lastname)
+        //{
+        //    var customers = _context.Customers.GetCustomers.Where(c => c.LastName == lastname).ToList();
 
-            if (customers == null)
-                return NotFound();
+        //    if (customers == null)
+        //        return NotFound();
 
+        //    return Ok(customers);
+        //}
 
-            return Ok(customers);
-        }
-
+        // POST api/<Controller>/ with {Customer Object}
         [HttpPost]
         public IHttpActionResult CreateCustomer(Customer customer)
         {
@@ -69,6 +69,7 @@ namespace TestAPI.Controllers.API
             return Created(new Uri(Request.RequestUri + "/" + customer.CustomerId), customer);
         }
 
+        //PUT api/Controller/<Id> with {Customer Object}
         [HttpPut]
         public IHttpActionResult UpdateCustomer(int id, Customer customer)
         {
@@ -84,6 +85,8 @@ namespace TestAPI.Controllers.API
             {
                 existingCustomer.FirstName = customer.FirstName;
                 existingCustomer.LastName = customer.LastName;
+                existingCustomer.City = customer.City;
+                existingCustomer.Address = customer.Address;
             }
 
             _context.SaveChanges();
@@ -91,6 +94,7 @@ namespace TestAPI.Controllers.API
             return Ok();
         }
 
+        //DELETE api/controller/<Id>
         [HttpDelete]
         public IHttpActionResult DeleteCustomer(int id)
         {

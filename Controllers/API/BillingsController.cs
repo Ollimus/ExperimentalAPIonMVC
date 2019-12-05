@@ -64,7 +64,6 @@ namespace TestAPI.Controllers.API
                 return NotFound();
 
             return Ok(billings);
-
         }
     }
 }

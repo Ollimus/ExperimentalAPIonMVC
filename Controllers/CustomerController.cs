@@ -9,7 +9,7 @@ namespace TestAPI.Controllers
 {
     public class CustomerController : Controller
     {
-        private IUnitOfWork _context;
+        private readonly IUnitOfWork _context;
 
         public CustomerController(IUnitOfWork context)
         {

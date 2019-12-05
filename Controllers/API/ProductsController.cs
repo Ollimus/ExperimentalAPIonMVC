@@ -10,25 +10,21 @@ using Newtonsoft.Json;
 
 namespace TestAPI.Controllers.API
 {
+    [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _context;
 
-        public ProductsController()
+        public ProductsController(IUnitOfWork context)
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _context = context;
         }
 
         // GET api/<controller>
         [HttpGet]
         public IHttpActionResult GetProducts()
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products.GetProducts.ToList();
 
             if (products == null)
                 return NotFound();
@@ -40,7 +36,7 @@ namespace TestAPI.Controllers.API
         // GET api/<Controller>/<Id>
         public IHttpActionResult GetProducts(int id)
         {
-            var product = _context.Products.Where(c => c.ProductId == id).SingleOrDefault();
+            var product = _context.Products.GetProductById(id);
 
             if (product == null)
                 return NotFound();
@@ -48,14 +44,14 @@ namespace TestAPI.Controllers.API
             return Ok(product);
         }
 
+        [Route("/producer/{producer}")]
         [HttpGet]
         public IHttpActionResult SearchByProducer(string producer)
         {
-            var products = _context.Products.ToList().Where(c => c.Producer == producer);
+            var products = _context.Products.GetProductByProducer(producer);
 
             if (products == null)
                 return NotFound();
-
 
             return Ok(products);
         }
@@ -78,15 +74,17 @@ namespace TestAPI.Controllers.API
             if (!ModelState.IsValid || product == null)
                 return BadRequest();
 
-            var existingProduct = _context.Products.Where(c => c.ProductId == id).SingleOrDefault();
+            var existingProduct = _context.Products.GetProductById(id);
 
             if (existingProduct == null)
                 return NotFound();
 
             else
             {
-                //
-                //
+                existingProduct.Name = product.Name;
+                existingProduct.Producer = product.Producer;
+                existingProduct.Price = product.Price;
+                existingProduct.Stock = product.Stock;
             }
 
             _context.SaveChanges();
@@ -97,7 +95,7 @@ namespace TestAPI.Controllers.API
         [HttpDelete]
         public IHttpActionResult DeleteProduct(int id)
         {
-            var productInDB = _context.Products.SingleOrDefault(c => c.ProductId == id);
+            var productInDB = _context.Products.GetProductById(id);
 
             if (productInDB == null)
                 return NotFound();

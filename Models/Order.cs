@@ -7,7 +7,7 @@ using TestAPI.Models;
 
 namespace TestAPI.Models
 {
-    public class Billing
+    public class Order
     {
         public int Id { get; set; }
 
@@ -16,6 +16,12 @@ namespace TestAPI.Models
 
         [Required]
         public int ProductId { get; set; }
+
+        [Required]
+        public int OrderAmount { get; set; }
+
+        [Required]
+        public decimal TotalPrice { get; set; }
 
         [Required]
         public DateTime TimeAdded { get; set; }

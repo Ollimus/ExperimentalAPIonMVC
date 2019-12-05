@@ -176,7 +176,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\API\BillingsController.cs" />
+    <Compile Include="Controllers\API\OrdersController.cs" />
     <Compile Include="Controllers\API\CustomersController.cs" />
     <Compile Include="Controllers\API\ProductsController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -200,10 +200,14 @@
     <Compile Include="Migrations\201911121928263_AddingProducerField.Designer.cs">
       <DependentUpon>201911121928263_AddingProducerField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912052140209_NamingBillingsTableToOrders.cs" />
+    <Compile Include="Migrations\201912052140209_NamingBillingsTableToOrders.Designer.cs">
+      <DependentUpon>201912052140209_NamingBillingsTableToOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Billing.cs" />
-    <Compile Include="Repositories\BillingRepository.cs" />
-    <Compile Include="Repositories\IBillingRepository.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Repositories\OrdersRepository.cs" />
+    <Compile Include="Repositories\IOrdersRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Models\IUnitOfWork.cs" />
@@ -270,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Billing\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911121928263_AddingProducerField.resx">
       <DependentUpon>201911121928263_AddingProducerField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912052140209_NamingBillingsTableToOrders.resx">
+      <DependentUpon>201912052140209_NamingBillingsTableToOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

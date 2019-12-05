@@ -13,14 +13,14 @@ namespace TestAPI.Models
         ApplicationDbContext _context;
         public ICustomerRepository Customers { get; set; } //private set
         public IProductRepository Products { get; set; }
-        public IBillingRepository Billings { get; set; }
+        public IOrdersRepository Orders { get; set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Customers = new CustomerRepository(context);
             Products = new ProductRepository(context);
-            Billings = new BillingRepository(context);
+            Orders = new OrdersRepository(context);
         }
         
         public void SaveChanges()

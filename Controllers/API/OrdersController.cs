@@ -8,25 +8,20 @@ using System.Web.Http.Results;
 
 namespace TestAPI.Controllers.API
 {
-    [RoutePrefix("api/billings")]
-    public class BillingsController : ApiController
+    [RoutePrefix("api/orders")]
+    public class OrdersController : ApiController
     {
-        ApplicationDbContext _context;
+        private readonly IUnitOfWork _context;
 
-        public BillingsController()
+        public OrdersController(IUnitOfWork context)
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _context = context;
         }
 
         [HttpGet]
         public IHttpActionResult GetBillings()
         {
-            var billings = _context.Billings.ToList();
+            var billings = _context.Orders.GetOrders.ToList();
 
             return Ok(billings);
         }
@@ -34,7 +29,7 @@ namespace TestAPI.Controllers.API
         [HttpGet]
         public IHttpActionResult GetBillings(int id)
         {
-            var billing = _context.Billings.Where(c => c.Id == id).FirstOrDefault();
+            var billing = _context.Orders.GetOrderById(id);
 
             if (billing == null)
                 return NotFound();
@@ -46,7 +41,7 @@ namespace TestAPI.Controllers.API
         [Route("customers/{customerId}")]
         public IHttpActionResult GetBillingsByCustomer(int customerId)
         {
-            var billings = _context.Billings.Where(c => c.CustomerId == customerId).ToList();
+            var billings = _context.Orders.GetOrdersByCustomerid(customerId).ToList();
 
             if (billings.Count == 0)
                 return NotFound();
@@ -58,7 +53,7 @@ namespace TestAPI.Controllers.API
         [Route("products/{productId}")]
         public IHttpActionResult GetBillingsByProduct(int productId)
         {
-            var billings = _context.Billings.Where(c => c.ProductId == productId).ToList();
+            var billings = _context.Orders.GetOrdersByCustomerid(productId).ToList();
 
             if (billings.Count == 0)
                 return NotFound();

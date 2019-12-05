@@ -105,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
-    <Compile Include="UnitTests\Controllers\API\BillinsControllerTests.cs" />
+    <Compile Include="UnitTests\Controllers\API\OrdersControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\API\ProductsControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\API\CustomersControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />

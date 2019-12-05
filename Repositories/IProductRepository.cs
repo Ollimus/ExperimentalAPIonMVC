@@ -13,5 +13,6 @@ namespace TestAPI.Repositories
         void Add(Product product);
         void Remove(Product product);
         Product GetProductById(int id);
+        Product GetProductByProducer(string producer);
     }
 }

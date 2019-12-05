@@ -8,19 +8,21 @@ namespace TestAPI.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-            ApplicationDbContext _context;
+        ApplicationDbContext _context;
 
-            public ProductRepository(ApplicationDbContext context)
-            {
-                _context = context;
-            }
+        public ProductRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-            public IQueryable<Product> GetProducts { get { return _context.Products; } }
+        public IQueryable<Product> GetProducts { get { return _context.Products; } }
 
-            public void Remove(Product product) { _context.Products.Remove(product); }
+        public void Remove(Product product) { _context.Products.Remove(product); }
 
-            public void Add(Product product) { _context.Products.Add(product); }
+        public void Add(Product product) { _context.Products.Add(product); }
 
-            public Product GetProductById(int id) { return _context.Products.Where(p => p.ProductId == id).SingleOrDefault(); }
+        public Product GetProductById(int id) { return _context.Products.Where(p => p.ProductId == id).SingleOrDefault(); }
+
+        public Product GetProductByProducer(string producer) { return _context.Products.Where(p => p.Producer == producer).SingleOrDefault(); }
     }
 }

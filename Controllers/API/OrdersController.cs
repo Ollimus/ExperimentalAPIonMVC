@@ -19,7 +19,7 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpGet]
-        public IHttpActionResult GetBillings()
+        public IHttpActionResult GetOrders()
         {
             var billings = _context.Orders.GetOrders.ToList();
 
@@ -27,7 +27,7 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpGet]
-        public IHttpActionResult GetBillings(int id)
+        public IHttpActionResult GetOrders(int id)
         {
             var billing = _context.Orders.GetOrderById(id);
 
@@ -39,7 +39,7 @@ namespace TestAPI.Controllers.API
 
         [HttpGet]
         [Route("customers/{customerId}")]
-        public IHttpActionResult GetBillingsByCustomer(int customerId)
+        public IHttpActionResult GetOrdersByCustomer(int customerId)
         {
             var billings = _context.Orders.GetOrdersByCustomerid(customerId).ToList();
 
@@ -51,7 +51,7 @@ namespace TestAPI.Controllers.API
 
         [HttpGet]
         [Route("products/{productId}")]
-        public IHttpActionResult GetBillingsByProduct(int productId)
+        public IHttpActionResult GetOrdersByProduct(int productId)
         {
             var billings = _context.Orders.GetOrdersByCustomerid(productId).ToList();
 

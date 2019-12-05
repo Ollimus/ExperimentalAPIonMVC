@@ -5,7 +5,7 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TestAPI.Models.ApplicationDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TestAPI.Models.ApplicationDbContext>
     {
         public Configuration()
         {

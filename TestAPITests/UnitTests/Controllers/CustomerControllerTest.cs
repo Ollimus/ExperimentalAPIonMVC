@@ -16,7 +16,8 @@ namespace TestAPITests.UnitTests.Controllers
         private CustomerController _controller;
         Mock<ICustomerRepository> _mockRepository;
 
-        public CustomerControllerTest()
+        [TestInitialize]
+        public void TestInitialize()
         {
             _mockRepository = new Mock<ICustomerRepository>();
             var mockContext = new Mock<IUnitOfWork>();

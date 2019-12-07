@@ -15,5 +15,7 @@ namespace TestAPI.Repositories
         Order GetOrderById(int id);
         IQueryable<Order> GetOrdersByProductId(int id);
         IQueryable<Order> GetOrdersByCustomerid(int id);
+
+        Decimal CalculateTotalOrderValue(Product product, int amount);
     }
 }

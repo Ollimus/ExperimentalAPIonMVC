@@ -17,12 +17,13 @@ namespace TestAPI.Repositories
 
         public IQueryable<Order> GetOrders { get { return _context.Orders; } }
 
-        public void Remove(Order billing) { _context.Orders.Remove(billing); }
+        public void Remove(Order order) { _context.Orders.Remove(order); }
 
-        public void Add(Order billing) { _context.Orders.Add(billing); }
+        public void Add(Order order) { _context.Orders.Add(order); }
 
         public Order GetOrderById(int id) { return _context.Orders.Where(b => b.Id == id).SingleOrDefault(); }
         public IQueryable<Order> GetOrdersByProductId(int id) { return _context.Orders.Where(b => b.ProductId == id); }
         public IQueryable<Order> GetOrdersByCustomerid(int id) { return _context.Orders.Where(b => b.CustomerId == id); }
+        public Decimal CalculateTotalOrderValue(Product product, int amount) { return product.Price * amount; }
     }
 }

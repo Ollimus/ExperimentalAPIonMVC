@@ -40,62 +40,40 @@ namespace TestAPITests.UnitTests.Controllers
         public void GetProducts_GetAllProducts_ReturnsAllProducts()
         {
             List<Product> productList = new List<Product>();
-
-            Product product = new Product()
-            {
-                ProductId = 0,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            Product product = new Product();
 
             productList.Add(product);
+            productList.Add(product);
+
             _mockRepository.SetupGet(r => r.GetProducts).Returns(productList.AsQueryable());
 
             var result = _controller.GetProducts() as OkNegotiatedContentResult<List<Product>>;
-            var products = result.Content;
+            var resultProducts = result.Content;
 
-            Assert.AreEqual(1, products.Count);
+            Assert.AreEqual(productList.Count, resultProducts.Count);
         }
 
         [TestMethod]
         public void GetProducts_GetProductById_ReturnProductObject()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            Product product = new Product() { ProductId = 10 };
 
             _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
 
             var result = _controller.GetProducts(10) as OkNegotiatedContentResult<Product>;
             var productResult = result.Content;
 
-            Assert.AreEqual(10, productResult.ProductId);
+            Assert.AreEqual(product.ProductId, productResult.ProductId);
         }
 
         [TestMethod]
         public void GetProducts_GetProductByIncorrectId_ReturnNotFound()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            int incorrectProductId = 5;
+            Product product = new Product() { ProductId = 2 };
 
-            _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
-            var result = _controller.GetProducts(5);
+            _mockRepository.Setup(r => r.GetProductById(product.ProductId)).Returns(product);
+            var result = _controller.GetProducts(incorrectProductId);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -103,37 +81,22 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void SearchByProducer_GetProductByProducer_ReturnProductObject()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            Product product = new Product() { Producer = "Logitech" };
 
-            _mockRepository.Setup(r => r.GetProductByProducer("Logitech")).Returns(product);
-            var result = _controller.SearchByProducer("Logitech") as OkNegotiatedContentResult<Product>;
+            _mockRepository.Setup(r => r.GetProductByProducer(product.Producer)).Returns(product);
+            var result = _controller.SearchByProducer(product .Producer) as OkNegotiatedContentResult<Product>;
 
-            Assert.AreEqual("Logitech", result.Content.Producer);
+            Assert.AreEqual(product.Producer, result.Content.Producer);
         }
 
         [TestMethod]
         public void SearchByProducer_NoProductsFoundByProducer_ReturnNotFound()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            string invalidProducer = "Apple";
+            Product product = new Product() {Producer = "Logitech" };
 
-            _mockRepository.Setup(r => r.GetProductByProducer("Logitech")).Returns(product);
-            var result = _controller.SearchByProducer("Apple");
+            _mockRepository.Setup(r => r.GetProductByProducer(product.Producer)).Returns(product);
+            var result = _controller.SearchByProducer(invalidProducer);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -141,41 +104,26 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void CreateProduct_ValidProductCreated_ReturnCreated()
         {
+            Product product = new Product() { ProductId = 2 };
+
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
             _controller.Configuration = new HttpConfiguration();
 
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
-
             var result = _controller.CreateProduct(product) as CreatedNegotiatedContentResult<Product>;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(10, result.Content.ProductId);
+            Assert.AreEqual(product.ProductId, result.Content.ProductId);
         }
 
         [TestMethod]
         public void UpdateProduct_UpdateExistingCustomer_ReturnOK()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            Product product = new Product() { ProductId = 10 };
+            Product newProduct = new Product();
 
-            _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
-            var result = _controller.UpdateProduct(10, product);
+            _mockRepository.Setup(r => r.GetProductById(product.ProductId)).Returns(product);
+            var result = _controller.UpdateProduct(product.ProductId, newProduct);
 
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
@@ -183,18 +131,11 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void UpdateProduct_UpdateExistingProduct_ReturnNotFound()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            int incorrectId = 5;
+            Product product = new Product() { ProductId = 2 };
 
-            _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
-            var result = _controller.UpdateProduct(5, product);
+            _mockRepository.Setup(r => r.GetProductById(product.ProductId)).Returns(product);
+            var result = _controller.UpdateProduct(incorrectId, product);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -202,18 +143,10 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void DeleteProduct_DeleteProductWithCorrectId_ReturnOk()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            Product product = new Product() { ProductId = 2 };
 
-            _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
-            var result = _controller.DeleteProduct(10);
+            _mockRepository.Setup(r => r.GetProductById(product.ProductId)).Returns(product);
+            var result = _controller.DeleteProduct(product.ProductId);
 
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
@@ -221,18 +154,11 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void DeleteProduct_DeleteProductWithIncorrectId_ReturnNotFound()
         {
-            Product product = new Product()
-            {
-                ProductId = 10,
-                Name = "G15 Keyboard",
-                Description = "Gaming keyboard for many uses.",
-                Price = 120,
-                Producer = "Logitech",
-                Stock = 10
-            };
+            int incorrectId = 5;
+            Product product = new Product() { ProductId = 2 };
 
-            _mockRepository.Setup(r => r.GetProductById(10)).Returns(product);
-            var result = _controller.DeleteProduct(5);
+            _mockRepository.Setup(r => r.GetProductById(product.ProductId)).Returns(product);
+            var result = _controller.DeleteProduct(incorrectId);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }

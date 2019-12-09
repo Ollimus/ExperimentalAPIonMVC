@@ -7,6 +7,7 @@ using TestAPI.Models;
 using TestAPI.Repositories;
 using Moq;
 using System.Collections.Generic;
+using System.Web.Http.Results;
 
 namespace TestAPITests.UnitTests.Controllers
 {
@@ -27,7 +28,7 @@ namespace TestAPITests.UnitTests.Controllers
         }
 
         [TestMethod]
-        public void NullIdParameter_CustomerManagementNullableIntParameterAsNull_ReturnsNewCustomerObject()
+        public void CustomerManagement_PassNullableIntParameterAsNull_ReturnsNewCustomerObject()
         {
             var result = _controller.CustomerManagement(null) as ViewResult;
             var customer = result.Model as Customer;
@@ -38,7 +39,7 @@ namespace TestAPITests.UnitTests.Controllers
         }
 
         [TestMethod]
-        public void IdParameterAsZero_CustomerManagementNullableIntParameter_ReturnsNewCustomerObject()
+        public void CustomerManagement_PassZeroAsCustomerId_ReturnsNewCustomerObject()
         {
             var result = _controller.CustomerManagement(0) as ViewResult;
             var customer = result.Model as Customer;
@@ -49,29 +50,18 @@ namespace TestAPITests.UnitTests.Controllers
         }
 
         [TestMethod]
-        public void ExistingCustomerId_CustomerManagementPassCorrectId_ReturnsExistingCustomerObject()
+        public void CustomerManagement_PassCorrectCustomerId_ReturnsExistingCustomerObject()
         {
-            List<Customer> data = new List<Customer>();
-            int customerIdAsMock = 30;
+            Customer customer = new Customer() { CustomerId = 2 };
 
-            Customer customer = new Customer()
-            {
-                CustomerId = customerIdAsMock,
-                FirstName = "Kia",
-                LastName = "Hankola",
-                City = "Helsinki",
-                Address = "Helsingintie 16",
-                DateCreated = DateTime.Today
-            };
+            _mockRepository.Setup(c => c.GetCustomerById(customer.CustomerId)).Returns(customer);
 
-            _mockRepository.Setup(c => c.GetCustomerById(customerIdAsMock)).Returns(customer);
-
-            var result = _controller.CustomerManagement(customerIdAsMock) as ViewResult;
+            var result = _controller.CustomerManagement(customer.CustomerId) as ViewResult;
             var resultModel = result.Model as Customer;
 
             Assert.IsNotNull(result.Model);
             Assert.IsInstanceOfType(result.Model, typeof(Customer));
-            Assert.AreEqual(customerIdAsMock, resultModel.CustomerId);
+            Assert.AreEqual(customer.CustomerId, resultModel.CustomerId);
         }
     }
 }

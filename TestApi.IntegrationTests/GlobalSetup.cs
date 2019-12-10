@@ -15,8 +15,6 @@ namespace TestApi.IntegrationTests
         [AssemblyInitialize()]
         public static void SetUp(TestContext context)
         {
-            System.Diagnostics.Debug.Print("Test");
-
             var configuration = new TestAPI.Migrations.Configuration();
             var migrator = new DbMigrator(configuration);
             migrator.Update();

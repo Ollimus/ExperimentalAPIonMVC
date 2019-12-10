@@ -44,7 +44,7 @@ namespace TestAPI.Controllers.API
             return Ok(product);
         }
 
-        [Route("/producer/{producer}")]
+        [Route("producer/{producer}")]
         [HttpGet]
         public IHttpActionResult SearchByProducer(string producer)
         {

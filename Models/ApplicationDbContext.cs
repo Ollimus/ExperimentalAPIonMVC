@@ -12,7 +12,8 @@ namespace TestAPI.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public  ApplicationDbContext()
+        public ApplicationDbContext()
+            : base("DefaultConnection")
         {
         }
     }

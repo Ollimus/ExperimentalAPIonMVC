@@ -92,7 +92,7 @@
     <Compile Include="Controllers\API\OrdersControllerTests.cs" />
     <Compile Include="Controllers\API\ProductsControllerTests.cs" />
     <Compile Include="Controllers\CustomerControllerTest.cs" />
-    <Compile Include="CreateCustomers.cs" />
+    <Compile Include="CreateCustomer.cs" />
     <Compile Include="GlobalSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs" />

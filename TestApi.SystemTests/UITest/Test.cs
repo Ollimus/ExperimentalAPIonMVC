@@ -11,9 +11,9 @@ using OpenQA.Selenium.Firefox;
 namespace TestApi.SystemTests.UITest
 {
     [TestClass]
-    public class UnitTest1 : SeleniumTest
+    public class Test : SeleniumTest
     {
-        public UnitTest1() : base("TestApi") { }
+        public Test() : base("TestApi") { }
 
         [TestMethod]
         public void terer()

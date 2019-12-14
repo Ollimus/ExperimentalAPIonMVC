@@ -1,0 +1,72 @@
+@{
+    ViewBag.Title = "About";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">View</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody id="Customers">
+    </tbody>
+</table>
+
+    @Html.ActionLink("Product", "ProductManagement", null, new { @class = "btn btn-primary center-block" })
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            UpdateTable();
+
+            function UpdateTable() {
+                $.ajax({
+                    url: "/api/products",
+                    success: function (result) {
+
+                        //Intentionally using "inefficient" way to handle creation,
+                        //the purpose is later to compare the speed of this type of data handling
+                        //vs
+                        //built in library designed for UX and large data pools.
+
+                        const customerelements = document.getElementById("Customers");
+
+                        while (customerelements.firstChild) {
+                            customerelements.removeChild(customerelements.firstChild);
+                        }
+
+                        jQuery.each(result, function (index, value) {
+                            $(Customers).append(
+                                '<tr><td>' + value.CustomerId + '</td>' +
+                                '<td>' + value.FirstName + '</td>' +
+                                '<td>' + value.LastName + '</td>' +
+                                '<td><a href="CustomerManagement/' + value.CustomerId + '">View</a></td>' +
+                                '<td><button class="js-delete" data-customer-id="' + value.CustomerId + '">Delete</button></td>');
+                        })
+
+
+                        $("#Customers .js-delete").on("click", function () {
+                            if (confirm("Delete customer?")) {
+                                $.ajax({
+                                    url: "/api/customers/" + $(this).attr("data-customer-id"),
+                                    method: "DELETE",
+                                    success: function () {
+                                        UpdateTable();
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        });
+    </script>
+}

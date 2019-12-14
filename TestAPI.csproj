@@ -179,6 +179,7 @@
     <Compile Include="Controllers\API\OrdersController.cs" />
     <Compile Include="Controllers\API\CustomersController.cs" />
     <Compile Include="Controllers\API\ProductsController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,10 +272,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\NewCustomerForm.cshtml" />
     <Content Include="Views\Home\ApiGuide.cshtml" />
+    <Content Include="Views\Product\NewProductForm.cshtml" />
+    <Content Include="Views\Product\Products.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

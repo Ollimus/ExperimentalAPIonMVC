@@ -1,0 +1,105 @@
+﻿@model TestAPI.Models.Product
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ValidationSummary()
+
+@{ string functionName = "CreateProduct()";}
+
+@if (Model.ProductId != 0)
+{
+    functionName = "UpdateProduct()";
+}
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "Name" })
+    @Html.ValidationMessageFor(m => m.Name)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Description)
+    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @id = "Description" })
+    @Html.ValidationMessageFor(m => m.Description)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Producer)
+    @Html.TextBoxFor(m => m.Producer, new { @class = "form-control", @id = "Producer" })
+    @Html.ValidationMessageFor(m => m.Producer)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Price)
+    @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @id = "Price" })
+    @Html.ValidationMessageFor(m => m.Price)
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Stock)
+    @Html.TextBoxFor(m => m.Stock, new { @class = "form-control", @id = "Stock" })
+    @Html.ValidationMessageFor(m => m.Stock)
+</div>
+
+@Html.HiddenFor(m => m.ProductId, new { @id = "ProductId" })
+<button class="btn btn-primary" id="Submit" onclick=@functionName>Save</button>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            document.getElementById("Submit").onclick = function () { @functionName };
+
+            function CreateProduct() {
+                var product = GetProduct();
+
+                $.ajax({
+                    url: "/api/products",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(product),
+                    success: function () {
+                        window.location.replace("/product/products");
+                    },
+                });
+            }
+
+            function UpdateProduct() {
+
+                var product = GetProduct();
+
+                $.ajax({
+                    url: "/api/products/" + @Model.ProductId,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(product),
+                    success: function () {
+                        window.location.replace("/product/products");
+                    },
+                });
+            }
+
+            function GetProduct()
+            {
+                var id = @Model.ProductId;
+                var name = document.getElementById("Name").value;
+                var description = document.getElementById("Description").value;
+                var price = document.getElementById("Price").value;
+                var producer = document.getElementById("Producer").value;
+                var stock = document.getElementById("Stock").value;
+
+                var product = {
+                    ProductId: id,
+                    Name: name,
+                    Description: description,
+                    Price: price,
+                    producer: producer,
+                    Stock: stock
+                };
+
+                return product;
+            }
+        });
+    </script>
+}

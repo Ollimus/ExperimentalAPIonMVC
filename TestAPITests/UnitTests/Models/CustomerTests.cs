@@ -12,7 +12,7 @@ namespace TestAPITests
     public class CustomerTests
     {
         [TestMethod]
-        public void CreateCustomer_CorrectDetails_ValidationSuccess()
+        public void CreateCustomer_CorrectlyValidateAllProperties_ValidationSuccess()
         {
             Customer customer = new Customer()
             {
@@ -26,20 +26,18 @@ namespace TestAPITests
 
             var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-
             var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
 
             Assert.IsTrue(isValid);
         }
 
         [TestMethod]
-        public void CreateCustomer_NoProperties_ValidationFailure()
+        public void CreateCustomer_ValidateAllPropertiesWithNoValues_ValidationFailure()
         {
             Customer customer = new Customer();
 
             var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-
             var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
 
             Assert.IsFalse(isValid);
@@ -48,167 +46,135 @@ namespace TestAPITests
         [TestMethod]
         public void CreateCustomer_FirstNameValueTooShort_ReturnError()
         {
-            string errorMessage = "Minimum of 2 characters.";
-            int errorMessageCount = 0;
+            Customer customer = new Customer() { FirstName = "K" };
 
-            Customer customer = new Customer()
+            var validationContext = new ValidationContext(customer, null, null)
             {
-                CustomerId = 0, //Not required, but put in as mock.
-                FirstName = "K",
-                LastName = "Hankila",
-                City = "Helsinki",
-                Address = "Helsingintie 16",
-                DateCreated = DateTime.Today
+                MemberName = "FirstName"
             };
 
-            var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
-
-            if (errors.Count > 1)
-                Assert.Fail();
-            
-            foreach (var error in errors)
-            {
-                if (errorMessage == error.ErrorMessage)
-                    errorMessageCount++;
-            }
+            var isValid = Validator.TryValidateProperty(customer.FirstName, validationContext, errors);
 
             Assert.IsFalse(isValid);
-            Assert.AreEqual(1, errorMessageCount);
+            Assert.AreEqual(1, errors.Count);
+        }
+
+        [TestMethod]
+        public void CreateCustomer_FirstNameValueTooLong_ReturnError()
+        {
+            string testString = new string('a', 101);
+            Customer customer = new Customer() { FirstName = testString };
+
+            var validationContext = new ValidationContext(customer, null, null)
+            {
+                MemberName = "FirstName"
+            };
+
+            var errors = new List<ValidationResult>();
+            var isValid = Validator.TryValidateProperty(customer.FirstName, validationContext, errors);
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errors.Count);
         }
 
         [TestMethod]
         public void CreateCustomer_LastNameValueTooShort_ReturnError()
         {
-            string errorMessage = "Minimum of 2 characters.";
-            int errorMessageCount = 0;
+            Customer customer = new Customer() { LastName = "H" };
 
-            Customer customer = new Customer()
+            var validationContext = new ValidationContext(customer, null, null)
             {
-                CustomerId = 0, //Not required, but put in as mock.
-                FirstName = "Kia",
-                LastName = "H",
-                City = "Helsinki",
-                Address = "Helsingintie 16",
-                DateCreated = DateTime.Today
+                MemberName = "LastName"
             };
-
-            var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
-
-            if (errors.Count > 1)
-                Assert.Fail();
-
-            foreach (var error in errors)
-            {
-                if (errorMessage == error.ErrorMessage)
-                    errorMessageCount++;
-            }
+            var isValid = Validator.TryValidateProperty(customer.LastName, validationContext, errors);
 
             Assert.IsFalse(isValid);
-            Assert.AreEqual(1, errorMessageCount);
+            Assert.AreEqual(1, errors.Count);
+        }
+
+        [TestMethod]
+        public void CreateCustomer_LastNameValueTooLong_ReturnError()
+        {
+            string testString = new string('a', 101);
+            Customer customer = new Customer() { LastName = testString };
+
+            var validationContext = new ValidationContext(customer, null, null)
+            {
+                MemberName = "LastName"
+            };
+            var errors = new List<ValidationResult>();
+            var isValid = Validator.TryValidateProperty(customer.LastName, validationContext, errors);
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errors.Count);
         }
 
         [TestMethod]
         public void CreateCustomer_CityValueTooShort_ReturnError()
         {
-            string errorMessage = "Minimum of 3 characters.";
-            int errorMessageCount = 0;
+            Customer customer = new Customer() { City = "He" };
 
-            Customer customer = new Customer()
+            var validationContext = new ValidationContext(customer, null, null)
             {
-                CustomerId = 0, //Not required, but put in as mock.
-                FirstName = "Kia",
-                LastName = "Hankola",
-                City = "He",
-                Address = "Helsingintie 16",
-                DateCreated = DateTime.Today
+                MemberName = "City"
             };
-
-            var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
-
-            if (errors.Count > 1)
-                Assert.Fail();
-
-            foreach (var error in errors)
-            {
-                if (errorMessage == error.ErrorMessage)
-                    errorMessageCount++;
-            }
+            var isValid = Validator.TryValidateProperty(customer.City, validationContext, errors);
 
             Assert.IsFalse(isValid);
-            Assert.AreEqual(1, errorMessageCount);
+            Assert.AreEqual(1, errors.Count);
+        }
+
+        [TestMethod]
+        public void CreateCustomer_CityValueTooLong_ReturnError()
+        {
+            string testString = new string('a', 101);
+            Customer customer = new Customer() { City = testString };
+
+            var validationContext = new ValidationContext(customer, null, null)
+            {
+                MemberName = "City"
+            };
+            var errors = new List<ValidationResult>();
+            var isValid = Validator.TryValidateProperty(customer.City, validationContext, errors);
+
+            Assert.IsFalse(isValid);
+            Assert.AreEqual(1, errors.Count);
         }
 
         [TestMethod]
         public void CreateCustomer_AddressValueTooShort_ReturnError()
         {
-            string errorMessage = "Minimum of 3 characters.";
-            int errorMessageCount = 0;
+            Customer customer = new Customer() { Address = "He" };
 
-            Customer customer = new Customer()
+            var validationContext = new ValidationContext(customer, null, null)
             {
-                CustomerId = 0, //Not required, but put in as mock.
-                FirstName = "Kia",
-                LastName = "Hankola",
-                City = "Helsinki",
-                Address = "He",
-                DateCreated = DateTime.Today
+                MemberName = "Address"
             };
-
-            var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
-
-            if (errors.Count > 1)
-                Assert.Fail();
-
-            foreach (var error in errors)
-            {
-                if (errorMessage == error.ErrorMessage)
-                    errorMessageCount++;
-            }
+            var isValid = Validator.TryValidateProperty(customer.Address, validationContext, errors);
 
             Assert.IsFalse(isValid);
-            Assert.AreEqual(1, errorMessageCount);
+            Assert.AreEqual(1, errors.Count);
         }
 
         [TestMethod]
-        public void CreateCustomer_PropertyValuesTooLong_ReturnErrors()
+        public void CreateCustomer_AddressValueTooLong_ReturnError()
         {
-            string errorMessage = "Only 100 characters allowed.";
-            int errorMessageCount = 0;
             string testString = new string('a', 101);
+            Customer customer = new Customer() { Address = testString };
 
-            Customer customer = new Customer()
+            var validationContext = new ValidationContext(customer, null, null)
             {
-                CustomerId = 0, //Not required, but put in as mock.
-                FirstName = testString,
-                LastName = testString,
-                City = testString,
-                Address = testString,
-                DateCreated = DateTime.Today
+                MemberName = "Address"
             };
-
-            var validationContext = new ValidationContext(customer, null, null);
             var errors = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(customer, validationContext, errors, true);
-
-            if (errors.Count > 4 || errors.Count < 4)
-                Assert.Fail();
-
-            foreach (var error in errors)
-            {
-                if (errorMessage == error.ErrorMessage)
-                    errorMessageCount++;
-            }
+            var isValid = Validator.TryValidateProperty(customer.Address, validationContext, errors);
 
             Assert.IsFalse(isValid);
-            Assert.AreEqual(4, errorMessageCount);
+            Assert.AreEqual(1, errors.Count);
         }
     }
 }

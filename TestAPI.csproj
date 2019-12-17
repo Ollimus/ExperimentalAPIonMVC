@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201912171425522_LinkingCustomersAndProductsInOrderTable.Designer.cs">
       <DependentUpon>201912171425522_LinkingCustomersAndProductsInOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912172022200_RenamingOrderAmountToQuantity.cs" />
+    <Compile Include="Migrations\201912172022200_RenamingOrderAmountToQuantity.Designer.cs">
+      <DependentUpon>201912172022200_RenamingOrderAmountToQuantity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Repositories\OrdersRepository.cs" />
@@ -315,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912171425522_LinkingCustomersAndProductsInOrderTable.resx">
       <DependentUpon>201912171425522_LinkingCustomersAndProductsInOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912172022200_RenamingOrderAmountToQuantity.resx">
+      <DependentUpon>201912172022200_RenamingOrderAmountToQuantity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

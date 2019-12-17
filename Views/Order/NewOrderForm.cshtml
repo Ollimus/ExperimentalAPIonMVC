@@ -1,0 +1,140 @@
+﻿@model TestAPI.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "Product Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Html.EnableClientValidation(true);
+}
+
+@Html.ValidationSummary()
+
+@{ string functionName = "CreateOrder()";}
+
+@if (Model.ProductId != 0)
+{
+    functionName = "UpdateOrder()";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.CustomerId)
+        @Html.DropDownListFor(m => m.CustomerId, new SelectList(Model.Customers, "CustomerId", "FirstName"), "", new { @class = "form-control selectpicker", })
+        @Html.ValidationMessageFor(m => m.CustomerId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductId)
+        @Html.DropDownListFor(m => m.ProductId, new SelectList(Model.Products, "ProductId", "Name"), "",
+       new { @class = "form-control selectpicker", @id = "ProductId", @onchange = "GetPrice()" })
+        @Html.ValidationMessageFor(m => m.ProductId)
+    </div>
+    <div class="form-group">
+        @Html.Label("Product Price") <br/>
+        <input id="price" type="text" readonly />
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrderAmount)
+        @Html.TextBoxFor(m => m.OrderAmount, new { @class = "form-control", @id="OrderAmount", @onchange = "CalculateTotal()" })
+        @Html.ValidationMessageFor(m => m.OrderAmount)
+    </div>
+    <div class="form-group">
+        @Html.Label("Total Order Price") <br />
+        <input id="TotalPrice" type="text" readonly />
+    </div>
+}
+
+<button class="btn btn-primary" id="Submit" onclick=@functionName>Save</button>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        var yourJavaScriptArray = @Html.Raw(Json.Encode(Model.Products));
+
+        var GetPrice = function () {
+
+            var correctValue;
+
+            var productPrice = document.getElementById('ProductId'),
+                price = document.getElementById('price');
+
+            yourJavaScriptArray.forEach(function (item) {
+                if (item.ProductId == productPrice.value) {
+                    correctValue = item.Price;
+                }
+            });
+
+            price.value = parseFloat(correctValue);
+
+        }
+
+        var CalculateTotal = function () {
+            var orderAmount = document.getElementById('OrderAmount')
+            var totalPrice = document.getElementById('TotalPrice');
+            var  price = document.getElementById('price');
+
+            totalPrice.value = parseFloat(price.value * orderAmount.value).toFixed(2);
+        }
+
+
+        $(document).ready(function () {
+
+    document.getElementById("Submit").onclick = function () { @functionName };
+
+    function CreateProduct() {
+        var product = GetProduct();
+
+                $.ajax({
+        url: "/api/products",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(product),
+                    success: function () {
+                window.location.replace("/product/products");
+            },
+                });
+                    }
+
+                    function UpdateProduct() {
+
+                        var product = GetProduct();
+
+                $.ajax({
+                        url: "/api/products/" + @Model.ProductId,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(product),
+                    success: function () {
+                                window.location.replace("/product/products");
+                            },
+                });
+                    }
+
+                    function GetProduct()
+                    {
+                        var id = @Model.ProductId;
+                        var name = document.getElementById("Name").value;
+                        var description = document.getElementById("Description").value;
+                        var price = document.getElementById("Price").value;
+                        var producer = document.getElementById("Producer").value;
+                        var stock = document.getElementById("Stock").value;
+
+                        var product = {
+                    ProductId: id,
+                    Name: name,
+                    Description: description,
+                    Price: price,
+                    producer: producer,
+                    Stock: stock
+                        };
+
+                return product;
+            }
+        }
+    );
+    </script>
+}

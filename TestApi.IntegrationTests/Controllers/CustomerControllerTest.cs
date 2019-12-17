@@ -8,7 +8,7 @@ using TestAPI.Repositories;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace TestAPITests.UnitTests.Controllers
+namespace TestAPITests.IntegrationTests.Controllers
 {
     [TestClass]
     public class CustomerControllerTest

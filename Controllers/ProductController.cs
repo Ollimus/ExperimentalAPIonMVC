@@ -16,7 +16,7 @@ namespace TestAPI.Controllers
             _context = context;
         }
 
-        public ActionResult Customers()
+        public ActionResult Products()
         {
             ViewBag.Message = "Display Products";
 

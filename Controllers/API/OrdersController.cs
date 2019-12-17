@@ -46,6 +46,7 @@ namespace TestAPI.Controllers.API
             if (orders.Count == 0)
                 return NotFound();
 
+
             return Ok(orders);
         }
 
@@ -104,7 +105,7 @@ namespace TestAPI.Controllers.API
             {
                 orderFromDB.ProductId = product.ProductId;
                 orderFromDB.CustomerId = customer.CustomerId;
-                orderFromDB.OrderAmount = orderAmount;
+                orderFromDB.Quantity = orderAmount;
                 orderFromDB.TotalPrice = _context.Orders.CalculateTotalOrderValue(product, orderAmount);
             }
 

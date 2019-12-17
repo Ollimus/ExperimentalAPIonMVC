@@ -7,13 +7,13 @@ using TestAPI.Models;
 
 namespace TestApi.IntegrationTests
 {
-    public static class CreateCustomer
+    public static class CreateTestObjects
     {
         public static Customer CreateNewCustomer(string firstName, string lastName, string city, string address)
         {
             Customer customer = new Customer()
             {
-                CustomerId = 0, //Not required, but put in as mock.
+                CustomerId = 0,
                 FirstName = firstName,
                 LastName = lastName,
                 City = city,
@@ -22,6 +22,21 @@ namespace TestApi.IntegrationTests
             };
 
             return customer;
+        }
+
+        public static Product CreateNewProduct(string name, string description, string producer, decimal price, int stock)
+        {
+            Product product = new Product()
+            {
+                ProductId = 0,
+                Name = name,
+                Description = description,
+                Producer = producer,
+                Price = price,
+                Stock = stock
+            };
+
+            return product;
         }
     }
 }

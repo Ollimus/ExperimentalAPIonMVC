@@ -25,23 +25,10 @@ namespace TestAPITests.IntegrationTests.Controllers
         private CustomersController _controller;
         private ApplicationDbContext _context;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public CustomersControllerTest()
         {
             _context = new ApplicationDbContext();
             _controller = new CustomersController(new UnitOfWork(_context));
-        }
-
-        /*
-         * Without this function, database auto_increments as the test goes. This is run after every test so each test's new entry will be 1. 
-         * The reasoning is that at least this way the DB is always at the same state for each test.
-        */
-        [TestCleanup]
-        public void ResetIdentityIndexes()
-        {
-            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE Customers;");
-            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products;");
-            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE Orders;");
         }
 
         [TestMethod]
@@ -49,9 +36,9 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customer = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
-                Customer secondCustomer = CreateCustomer.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
-                Customer thirdCustomer = CreateCustomer.CreateNewCustomer("Jarno", "Kuivanen", "Joensuu", "Tulliportinkatu 8");
+                Customer customer = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer secondCustomer = CreateTestObjects.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
+                Customer thirdCustomer = CreateTestObjects.CreateNewCustomer("Jarno", "Kuivanen", "Joensuu", "Tulliportinkatu 8");
 
                 _context.Customers.Add(customer);
                 _context.Customers.Add(secondCustomer);
@@ -72,9 +59,9 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customer = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
-                Customer secondCustomer = CreateCustomer.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
-                Customer thirdCustomer = CreateCustomer.CreateNewCustomer("Jarno", "Kuivanen", "Joensuu", "Tulliportinkatu 8");
+                Customer customer = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer secondCustomer = CreateTestObjects.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
+                Customer thirdCustomer = CreateTestObjects.CreateNewCustomer("Jarno", "Kuivanen", "Joensuu", "Tulliportinkatu 8");
 
                 _context.Customers.Add(customer);
                 _context.Customers.Add(secondCustomer);
@@ -102,7 +89,7 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customer = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer customer = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
 
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
@@ -124,8 +111,8 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customerInDB = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
-                Customer updatingCustomer = CreateCustomer.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
+                Customer customerInDB = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer updatingCustomer = CreateTestObjects.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
 
                 _context.Customers.Add(customerInDB);
                 _context.SaveChanges();
@@ -141,7 +128,7 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer updatingCustomer = CreateCustomer.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
+                Customer updatingCustomer = CreateTestObjects.CreateNewCustomer("Teuvo", "Hakkarainen", "Tampere", "Tampereentie 2");
 
                 var result = _controller.UpdateCustomer(7, updatingCustomer);
 
@@ -155,7 +142,7 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customerInDB = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer customerInDB = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
                 Customer updatingCustomer = null;
 
                 _context.Customers.Add(customerInDB);
@@ -172,12 +159,14 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customerInDB = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer customer = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
 
-                _context.Customers.Add(customerInDB);
+                _context.Customers.Add(customer);
                 _context.SaveChanges();
 
-                var result = _controller.DeleteCustomer(customerInDB.CustomerId);
+                var checkIfExistsInDB = _controller.GetCustomers(customer.CustomerId) as OkNegotiatedContentResult<Customer>;
+                var result = _controller.DeleteCustomer(customer.CustomerId);
+                var checkIfDeleted = _controller.GetCustomers(customer.CustomerId) as OkNegotiatedContentResult<Customer>;
 
                 Assert.IsInstanceOfType(result, typeof(OkResult));
             }
@@ -188,7 +177,7 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                Customer customerInDB = CreateCustomer.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
+                Customer customerInDB = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
 
                 _context.Customers.Add(customerInDB);
                 _context.SaveChanges();

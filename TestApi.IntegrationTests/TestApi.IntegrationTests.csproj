@@ -88,9 +88,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\API\ProductsControllerTests - Copy.cs" />
+    <Compile Include="Controllers\API\ProductsControllerTests.cs" />
     <Compile Include="Controllers\API\CustomersControllerTests.cs" />
     <Compile Include="Controllers\CustomerControllerTest.cs" />
-    <Compile Include="CreateCustomer.cs" />
+    <Compile Include="CreateTestObjects.cs" />
     <Compile Include="GlobalSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

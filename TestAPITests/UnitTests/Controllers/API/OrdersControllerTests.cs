@@ -331,7 +331,7 @@ namespace TestAPITests.UnitTests.Controllers
                 Id = 2,
                 CustomerId = 4,
                 ProductId = 6,
-                OrderAmount = 2,
+                Quantity = 2,
                 TotalPrice = 100
             };
 
@@ -352,7 +352,7 @@ namespace TestAPITests.UnitTests.Controllers
                 Id = 2,
                 CustomerId = 4,
                 ProductId = 6,
-                OrderAmount = 2,
+                Quantity = 2,
                 TotalPrice = 100
             };
 
@@ -372,7 +372,7 @@ namespace TestAPITests.UnitTests.Controllers
                 Id = 2,
                 CustomerId = 4,
                 ProductId = 6,
-                OrderAmount = 2,
+                Quantity = 2,
                 TotalPrice = 100
             };
 

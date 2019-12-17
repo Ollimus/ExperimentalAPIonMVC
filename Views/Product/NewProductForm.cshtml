@@ -1,8 +1,9 @@
 ﻿@model TestAPI.Models.Product
 
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Product Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Html.EnableClientValidation(true);
 }
 
 @Html.ValidationSummary()
@@ -13,39 +14,45 @@
 {
     functionName = "UpdateProduct()";
 }
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Name)
-    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "Name" })
-    @Html.ValidationMessageFor(m => m.Name)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Description)
-    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @id = "Description" })
-    @Html.ValidationMessageFor(m => m.Description)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Producer)
-    @Html.TextBoxFor(m => m.Producer, new { @class = "form-control", @id = "Producer" })
-    @Html.ValidationMessageFor(m => m.Producer)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Price)
-    @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @id = "Price" })
-    @Html.ValidationMessageFor(m => m.Price)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Stock)
-    @Html.TextBoxFor(m => m.Stock, new { @class = "form-control", @id = "Stock" })
-    @Html.ValidationMessageFor(m => m.Stock)
-</div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "Name" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @id = "Description" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Producer)
+        @Html.TextBoxFor(m => m.Producer, new { @class = "form-control", @id = "Producer" })
+        @Html.ValidationMessageFor(m => m.Producer)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @id = "Price" })
+        @Html.ValidationMessageFor(m => m.Price)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Stock)
+        @Html.TextBoxFor(m => m.Stock, new { @class = "form-control", @id = "Stock" })
+        @Html.ValidationMessageFor(m => m.Stock)
+    </div>
 
-@Html.HiddenFor(m => m.ProductId, new { @id = "ProductId" })
+    @Html.HiddenFor(m => m.ProductId, new { @id = "ProductId" })
+}
+
 <button class="btn btn-primary" id="Submit" onclick=@functionName>Save</button>
-
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
+
     <script>
         $(document).ready(function () {
 

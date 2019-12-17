@@ -6,20 +6,20 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Producer</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price (€)</th>
-            <th scope="col">Stock</th>
+            <th scope="col"># Customer</th>
+            <th scope="col"># Product</th>
+            <th scope="col">Order Amount</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Time Added</th>
             <th scope="col">View</th>
             <th scope="col">Delete</th>
         </tr>
     </thead>
-    <tbody id="Products">
+    <tbody id="Orders">
     </tbody>
 </table>
 
-    @Html.ActionLink("New Product", "ProductManagement", null, new { @class = "btn btn-primary center-block" })
+@Html.ActionLink("New Order", "OrderManagement", null, new { @class = "btn btn-primary center-block" })
 
 
 
@@ -32,7 +32,7 @@
 
             function UpdateTable() {
                 $.ajax({
-                    url: "/api/products",
+                    url: "/api/orders",
                     success: function (result) {
 
                         //Intentionally using "inefficient" way to handle creation,
@@ -40,20 +40,20 @@
                         //vs
                         //built in library designed for UX and large data pools.
 
-                        const productElements = document.getElementById("Products");
+                        const productElements = document.getElementById("Orders");
 
                         while (productElements.firstChild) {
                             productElements.removeChild(productElements.firstChild);
                         }
 
                         jQuery.each(result, function (index, value) {
-                            $(Products).append(
-                                '<tr><td>' + value.ProductId + '</td>' +
-                                '<td>' + value.Producer + '</td>' +
-                                '<td>' + value.Name + '</td>' +
-                                '<td>' + value.Description + '</td>' +
-                                '<td>' + value.Price + '</td>' +
-                                '<td>' + value.Stock + '</td>' +
+                            $(Orders).append(
+                                '<tr><td>' + value.Id + '</td>' +
+                                '<td>' + value.CustomerId + " - " + value.Customer.FirstName + " " + value.Customer.LastName + '</td>' +
+                                '<td>' + value.ProductId + " - " + value.Product.Producer +  " " + value.Product.Name + '</td>' +
+                                '<td>' + value.OrderAmount + '</td>' +
+                                '<td>' + value.TotalPrice + '</td>' +
+                                '<td>' + value.TimeAdded + '</td>' +
                                 '<td><a href="ProductManagement/' + value.ProductId + '">View</a></td>' +
                                 '<td><button class="js-delete" data-product-id="' + value.ProductId + '">Delete</button></td>');
                         })

@@ -179,6 +179,7 @@
     <Compile Include="Controllers\API\OrdersController.cs" />
     <Compile Include="Controllers\API\CustomersController.cs" />
     <Compile Include="Controllers\API\ProductsController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -205,6 +206,10 @@
     <Compile Include="Migrations\201912052140209_NamingBillingsTableToOrders.Designer.cs">
       <DependentUpon>201912052140209_NamingBillingsTableToOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912171425522_LinkingCustomersAndProductsInOrderTable.cs" />
+    <Compile Include="Migrations\201912171425522_LinkingCustomersAndProductsInOrderTable.Designer.cs">
+      <DependentUpon>201912171425522_LinkingCustomersAndProductsInOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Repositories\OrdersRepository.cs" />
@@ -225,6 +230,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\OrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -274,10 +280,10 @@
     <Content Include="Views\Home\ApiGuide.cshtml" />
     <Content Include="Views\Product\NewProductForm.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
+    <Content Include="Views\Order\NewOrderForm.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -306,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912052140209_NamingBillingsTableToOrders.resx">
       <DependentUpon>201912052140209_NamingBillingsTableToOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912171425522_LinkingCustomersAndProductsInOrderTable.resx">
+      <DependentUpon>201912171425522_LinkingCustomersAndProductsInOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

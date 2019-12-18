@@ -8,7 +8,7 @@
             <th scope="col">#</th>
             <th scope="col"># Customer</th>
             <th scope="col"># Product</th>
-            <th scope="col">Order Amount</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Total Price</th>
             <th scope="col">Time Added</th>
             <th scope="col">View</th>
@@ -51,18 +51,18 @@
                                 '<tr><td>' + value.Id + '</td>' +
                                 '<td>' + value.CustomerId + " - " + value.Customer.FirstName + " " + value.Customer.LastName + '</td>' +
                                 '<td>' + value.ProductId + " - " + value.Product.Producer +  " " + value.Product.Name + '</td>' +
-                                '<td>' + value.OrderAmount + '</td>' +
+                                '<td>' + value.Quantity + '</td>' +
                                 '<td>' + value.TotalPrice + '</td>' +
                                 '<td>' + value.TimeAdded + '</td>' +
                                 '<td><a href="ProductManagement/' + value.ProductId + '">View</a></td>' +
-                                '<td><button class="js-delete" data-product-id="' + value.ProductId + '">Delete</button></td>');
+                                '<td><button class="js-delete" data-order-id="' + value.Id + '">Delete</button></td>');
                         })
 
 
                         $("#Customers .js-delete").on("click", function () {
-                            if (confirm("Delete product?")) {
+                            if (confirm("Delete order?")) {
                                 $.ajax({
-                                    url: "/api/products/" + $(this).attr("data-product-id"),
+                                    url: "/api/orders/" + $(this).attr("data-order-id"),
                                     method: "DELETE",
                                     success: function () {
                                         UpdateTable();

@@ -39,7 +39,7 @@ namespace TestAPI.Controllers
                     Id = order.Id,
                     ProductId = order.ProductId,
                     CustomerId = order.CustomerId,
-                    OrderAmount = order.Quantity,
+                    Quantity = order.Quantity,
                     TotalPrice = order.TotalPrice,
                     Customers = _context.Customers.GetCustomers,
                     Products = _context.Products.GetProducts

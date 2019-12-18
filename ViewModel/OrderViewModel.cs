@@ -18,7 +18,7 @@ namespace TestAPI.ViewModel
         public int ProductId { get; set; }
 
         [Required]
-        public int OrderAmount { get; set; }
+        public int Quantity { get; set; }
 
         [Required]
         public decimal TotalPrice { get; set; }

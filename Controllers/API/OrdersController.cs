@@ -63,29 +63,33 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpPost]
-        public IHttpActionResult CreateOrder(int customerId, int productId, int productAmount)
+        public IHttpActionResult CreateOrder(Order order)
         {
-            var customer = _context.Customers.GetCustomerById(customerId);
-            var product = _context.Products.GetProductById(productId);
+            if (order.Quantity <= 0)
+                return BadRequest();
+
+            if (!ModelState.IsValid || order == null)
+                return BadRequest();
+
+            var customer = _context.Customers.GetCustomerById(order.CustomerId);
+            var product = _context.Products.GetProductById(order.ProductId);
 
             if (customer == null || product == null)
                 return NotFound();
 
-            if (productAmount <= 0)
-                return BadRequest();
-
-            Order order = new Order()
+            Order createNewOrder = new Order()
             {
-                CustomerId = customerId,
-                ProductId = productId,
-                TotalPrice = _context.Orders.CalculateTotalOrderValue(product, productAmount),
+                CustomerId = order.CustomerId,
+                ProductId = order.ProductId,
+                Quantity = order.Quantity,
+                TotalPrice = _context.Orders.CalculateTotalOrderValue(product, order.Quantity),
                 TimeAdded = DateTime.Now
             };
 
-            _context.Orders.Add(order);
+            _context.Orders.Add(createNewOrder);
             _context.SaveChanges();
 
-            return Created(new Uri(Request.RequestUri + "/" + order.Id), order);
+            return Created(new Uri(Request.RequestUri + "/" + createNewOrder.Id), createNewOrder);
         }
 
         [HttpPut]

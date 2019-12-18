@@ -88,7 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\API\ProductsControllerTests - Copy.cs" />
+    <Compile Include="Controllers\API\OrdersControllerTests.cs" />
     <Compile Include="Controllers\API\ProductsControllerTests.cs" />
     <Compile Include="Controllers\API\CustomersControllerTests.cs" />
     <Compile Include="Controllers\CustomerControllerTest.cs" />

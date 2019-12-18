@@ -38,5 +38,19 @@ namespace TestApi.IntegrationTests
 
             return product;
         }
+
+        public static Order CreateNewOrder(int customerId, int productId, int quantity)
+        {
+            Order order = new Order()
+            {
+                CustomerId = customerId,
+                ProductId = productId,
+                Quantity = quantity,
+                TotalPrice = 0,
+                TimeAdded = DateTime.Now.Date
+            };
+
+            return order;
+        }
     }
 }

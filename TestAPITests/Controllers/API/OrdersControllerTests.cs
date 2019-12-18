@@ -232,72 +232,24 @@ namespace TestApi.UnitTests.Controllers
         }
 
         [TestMethod]
-        public void CreateOrder_OrderAmountIsZero_ReturnBadRequest()
-        {
-            int orderAmount = 0;
-            Product product = new Product() { ProductId = 1, Price = 240.34m };
-            Customer customer = new Customer() { CustomerId = 2 };
-            Order order = new Order()
-            {
-                CustomerId = customer.CustomerId,
-                ProductId = product.ProductId,
-                Quantity = orderAmount,
-                TotalPrice = 0
-            };
-
-            HttpMethod test = new HttpMethod("Test");
-            _controller.Request = new HttpRequestMessage(test, "/");
-            _controller.Configuration = new HttpConfiguration();
-
-            _customerRepository.Setup(c => c.GetCustomerById(customer.CustomerId)).Returns(customer);
-            _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
-            _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
-
-            var result = _controller.CreateOrder(order);
-
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
-        }
-
-        [TestMethod]
-        public void CreateOrder_OrderAmountIsNegativeValue_ReturnBadRequest()
-        {
-            int orderAmount = -4;
-            Product product = new Product() { ProductId = 1, Price = 240.34m };
-            Customer customer = new Customer() { CustomerId = 2 };
-            Order order = new Order()
-            {
-                CustomerId = customer.CustomerId,
-                ProductId = product.ProductId,
-                Quantity = orderAmount,
-                TotalPrice = 0
-            };
-
-            HttpMethod test = new HttpMethod("Test");
-            _controller.Request = new HttpRequestMessage(test, "/");
-            _controller.Configuration = new HttpConfiguration();
-
-            _customerRepository.Setup(c => c.GetCustomerById(customer.CustomerId)).Returns(customer);
-            _productRepository.Setup(p => p.GetProductById(1)).Returns(product);
-            _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
-
-            var result = _controller.CreateOrder(order);
-
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
-        }
-
-        [TestMethod]
         public void UpdateOrder_UpdateOrderCorrectly_ReturnOk()
         {
             Product product = new Product() { ProductId = 1, Price = 250.34m };
             Customer customer = new Customer() { CustomerId = 3 };
-            Order existingOrder = new Order() { Id = 2 };
-            int orderAmount = 4;
+            Order existingOrder = new Order() { Id = 2, Quantity = 4 };
+            Order newOrder = new Order()
+            {
+                Id = 2,
+                ProductId = product.ProductId,
+                CustomerId = customer.CustomerId,
+                Quantity = 4,
+            };
 
             _mockRepository.Setup(o => o.GetOrderById(existingOrder.Id)).Returns(existingOrder);
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
             _customerRepository.Setup(p => p.GetCustomerById(customer.CustomerId)).Returns(customer);
 
-            var result = _controller.UpdateOrder(existingOrder.Id, customer.CustomerId, product.ProductId, orderAmount);
+            var result = _controller.UpdateOrder(existingOrder.Id, newOrder);
 
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
@@ -309,13 +261,13 @@ namespace TestApi.UnitTests.Controllers
             Order existingOrder = new Order() { Id = 2 };
             Product product = new Product() { ProductId = 1, Price = 250.34m };
             Customer customer = new Customer() { CustomerId = 3 };
-            int orderAmount = 4;
+            Order newOrder = new Order();
 
             _mockRepository.Setup(o => o.GetOrderById(existingOrder.Id)).Returns(existingOrder);
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
             _customerRepository.Setup(p => p.GetCustomerById(customer.CustomerId)).Returns(customer);
 
-            var result = _controller.UpdateOrder(incorrectOrderId, customer.CustomerId, product.ProductId, orderAmount);
+            var result = _controller.UpdateOrder(incorrectOrderId, newOrder);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -327,13 +279,13 @@ namespace TestApi.UnitTests.Controllers
             Customer customer = new Customer() { CustomerId = 3 };
             Product product = new Product() { ProductId = 1, Price = 250.34m };
             Order existingOrder = new Order() { CustomerId = 2 };
-            int orderAmount = 4;
+            Order newOrder = new Order();
 
             _mockRepository.Setup(o => o.GetOrderById(existingOrder.Id)).Returns(existingOrder);
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
-            _customerRepository.Setup(p => p.GetCustomerById(customer.CustomerId)).Returns(customer);
+            _customerRepository.Setup(p => p.GetCustomerById(incorrectCustomerId)).Returns(customer);
 
-            var result = _controller.UpdateOrder(existingOrder.Id, incorrectCustomerId, product.ProductId, orderAmount);
+            var result = _controller.UpdateOrder(existingOrder.Id, newOrder);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -341,43 +293,18 @@ namespace TestApi.UnitTests.Controllers
         [TestMethod]
         public void UpdateOrder_NoProductFoundWithProductId_ReturnNotFound()
         {
-            int orderAmount = 4;
             Product product = new Product() { ProductId = 1, Price = 250.34m };
             Customer customer = new Customer() { CustomerId = 3 };
-            Order order = new Order() {  ProductId = 6 };
+            Order order = new Order() { Id = 2, ProductId = 6 };
+            Order newOrder = new Order() { ProductId = 3 };
 
             //_mockRepository.Setup(o => o.GetOrderById(order.)).Returns(order);
             _productRepository.Setup(p => p.GetProductById(1)).Returns(product);
             _customerRepository.Setup(p => p.GetCustomerById(3)).Returns(customer);
 
-            var result = _controller.UpdateOrder(order.Id, customer.CustomerId, 7, orderAmount);
+            var result = _controller.UpdateOrder(order.Id, newOrder);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-        }
-
-        [TestMethod]
-        public void UpdateOrder_OrderAmountIsZero_ReturnBadRequest()
-        {
-            int orderAmount = 0;
-            Product product = new Product() { ProductId = 1, Price = 250.34m };
-            Customer customer = new Customer() { CustomerId = 3 };
-
-            Order existingOrder = new Order()
-            {
-                Id = 2,
-                CustomerId = 4,
-                ProductId = 6,
-                Quantity = 2,
-                TotalPrice = 100
-            };
-
-            _mockRepository.Setup(o => o.GetOrderById(2)).Returns(existingOrder);
-            _productRepository.Setup(p => p.GetProductById(1)).Returns(product);
-            _customerRepository.Setup(p => p.GetCustomerById(3)).Returns(customer);
-
-            var result = _controller.UpdateOrder(existingOrder.Id, customer.CustomerId, product.ProductId, orderAmount);
-
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
 
         [TestMethod]

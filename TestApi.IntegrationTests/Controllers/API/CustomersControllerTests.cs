@@ -91,9 +91,6 @@ namespace TestAPITests.IntegrationTests.Controllers
             {
                 Customer customer = CreateTestObjects.CreateNewCustomer("Kiira", "Toivonen", "Helsinki", "Helsingintie 16");
 
-                _context.Customers.Add(customer);
-                _context.SaveChanges();
-
                 HttpMethod test = new HttpMethod("Test");
                 _controller.Request = new HttpRequestMessage(test, "/");
                 _controller.Configuration = new HttpConfiguration();

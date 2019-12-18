@@ -90,12 +90,12 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateOrder(int existingOrderId, Order order)
+        public IHttpActionResult UpdateOrder(int Id, Order order)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var orderFromDB = _context.Orders.GetOrderById(existingOrderId);
+            var orderFromDB = _context.Orders.GetOrderById(Id);
             var customer = _context.Customers.GetCustomerById(order.CustomerId);
             var product = _context.Products.GetProductById(order.ProductId);
 

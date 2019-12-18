@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAPI", "TestAPI.csproj", "{DAED1DEF-6021-4CAF-825A-B526DA6999D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAPITests", "TestAPITests\TestAPITests.csproj", "{859BA3B2-EBE1-4B40-86CA-6F25B2432E93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi.UnitTests", "TestAPITests\TestApi.UnitTests.csproj", "{859BA3B2-EBE1-4B40-86CA-6F25B2432E93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi.IntegrationTests", "TestApi.IntegrationTests\TestApi.IntegrationTests.csproj", "{28D567A0-FAF0-4F35-968B-3BA7CB068266}"
 EndProject

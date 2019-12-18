@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace TestAPITests
+namespace TestApi.UnitTests
 {
     [TestClass]
     public class CustomerTests

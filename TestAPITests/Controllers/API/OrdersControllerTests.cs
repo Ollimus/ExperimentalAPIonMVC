@@ -16,7 +16,7 @@ using System.Web.Routing;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace TestAPITests.UnitTests.Controllers
+namespace TestApi.UnitTests.Controllers
 {
     [TestClass]
     public class OrdersControllerTest
@@ -153,6 +153,13 @@ namespace TestAPITests.UnitTests.Controllers
             Product product = new Product() { ProductId = 1, Price = 240.34m };
             Customer customer = new Customer() { CustomerId = 2 };
             decimal checkTotalPrice = orderAmount * product.Price;
+            Order order = new Order()
+            {
+                CustomerId = customer.CustomerId,
+                ProductId = product.ProductId,
+                Quantity = orderAmount,
+                TotalPrice = 0
+            };
 
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
@@ -162,7 +169,7 @@ namespace TestAPITests.UnitTests.Controllers
             _productRepository.Setup(p => p.GetProductById(1)).Returns(product);
             _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
 
-            var result = _controller.CreateOrder(customer.CustomerId, product.ProductId, orderAmount) as CreatedNegotiatedContentResult<Order>;
+            var result = _controller.CreateOrder(order) as CreatedNegotiatedContentResult<Order>;
             var totalPrice = result.Content.TotalPrice;
 
             Assert.AreEqual(checkTotalPrice, totalPrice);
@@ -175,6 +182,13 @@ namespace TestAPITests.UnitTests.Controllers
             int orderAmount = 4;
             Product product = new Product() { ProductId = 1, Price = 240.34m };
             Customer customer = new Customer() { CustomerId = 2 };
+            Order order = new Order()
+            {
+                CustomerId = incorrectCustomerid,
+                ProductId = product.ProductId,
+                Quantity = orderAmount,
+                TotalPrice = 0
+            };
 
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
@@ -184,7 +198,7 @@ namespace TestAPITests.UnitTests.Controllers
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
             _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
 
-            var result = _controller.CreateOrder(incorrectCustomerid, product.ProductId, orderAmount);
+            var result = _controller.CreateOrder(order);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -192,9 +206,17 @@ namespace TestAPITests.UnitTests.Controllers
         [TestMethod]
         public void CreateOrder_ProductNotFound_ReturnNotFound()
         {
+            int productId = 7;
             int orderAmount = 4;
             Product product = new Product() { ProductId = 1, Price = 240.34m };
             Customer customer = new Customer() { CustomerId = 2 };
+            Order order = new Order()
+            {
+                CustomerId = customer.CustomerId,
+                ProductId = productId,
+                Quantity = orderAmount,
+                TotalPrice = 0
+            };
 
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
@@ -204,7 +226,7 @@ namespace TestAPITests.UnitTests.Controllers
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
             _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
 
-            var result = _controller.CreateOrder(customer.CustomerId, 10, orderAmount);
+            var result = _controller.CreateOrder(order);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -215,6 +237,13 @@ namespace TestAPITests.UnitTests.Controllers
             int orderAmount = 0;
             Product product = new Product() { ProductId = 1, Price = 240.34m };
             Customer customer = new Customer() { CustomerId = 2 };
+            Order order = new Order()
+            {
+                CustomerId = customer.CustomerId,
+                ProductId = product.ProductId,
+                Quantity = orderAmount,
+                TotalPrice = 0
+            };
 
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
@@ -224,7 +253,7 @@ namespace TestAPITests.UnitTests.Controllers
             _productRepository.Setup(p => p.GetProductById(product.ProductId)).Returns(product);
             _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
 
-            var result = _controller.CreateOrder(customer.CustomerId, product.ProductId, orderAmount);
+            var result = _controller.CreateOrder(order);
 
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
@@ -235,6 +264,13 @@ namespace TestAPITests.UnitTests.Controllers
             int orderAmount = -4;
             Product product = new Product() { ProductId = 1, Price = 240.34m };
             Customer customer = new Customer() { CustomerId = 2 };
+            Order order = new Order()
+            {
+                CustomerId = customer.CustomerId,
+                ProductId = product.ProductId,
+                Quantity = orderAmount,
+                TotalPrice = 0
+            };
 
             HttpMethod test = new HttpMethod("Test");
             _controller.Request = new HttpRequestMessage(test, "/");
@@ -244,7 +280,7 @@ namespace TestAPITests.UnitTests.Controllers
             _productRepository.Setup(p => p.GetProductById(1)).Returns(product);
             _mockRepository.Setup(o => o.CalculateTotalOrderValue(product, orderAmount)).Returns(orderAmount * product.Price);
 
-            var result = _controller.CreateOrder(customer.CustomerId, product.ProductId, orderAmount);
+            var result = _controller.CreateOrder(order);
 
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }

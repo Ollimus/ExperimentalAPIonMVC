@@ -104,14 +104,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helper.cs" />
-    <Compile Include="UnitTests\Controllers\API\OrdersControllerTests.cs" />
-    <Compile Include="UnitTests\Controllers\API\ProductsControllerTests.cs" />
-    <Compile Include="UnitTests\Controllers\API\CustomersControllerTests.cs" />
-    <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />
-    <Compile Include="UnitTests\Controllers\CustomerControllerTest.cs" />
-    <Compile Include="UnitTests\Models\ProductTests.cs" />
-    <Compile Include="UnitTests\Models\CustomerTests.cs" />
+    <Compile Include="Controllers\API\OrdersControllerTests.cs" />
+    <Compile Include="Controllers\API\ProductsControllerTests.cs" />
+    <Compile Include="Controllers\API\CustomersControllerTests.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Controllers\CustomerControllerTest.cs" />
+    <Compile Include="Models\ProductTests.cs" />
+    <Compile Include="Models\CustomerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

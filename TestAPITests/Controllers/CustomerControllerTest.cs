@@ -9,7 +9,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Web.Http.Results;
 
-namespace TestAPITests.UnitTests.Controllers
+namespace TestApi.UnitTests.Controllers
 {
     [TestClass]
     public class CustomerControllerTest

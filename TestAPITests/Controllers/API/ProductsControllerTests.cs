@@ -16,7 +16,7 @@ using System.Web.Routing;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace TestAPITests.UnitTests.Controllers
+namespace TestApi.UnitTests.Controllers
 {
     [TestClass]
     public class ProductsControllerTest

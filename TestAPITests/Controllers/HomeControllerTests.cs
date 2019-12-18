@@ -7,7 +7,7 @@ using TestAPI.Controllers;
 using TestAPI.Repositories;
 using TestAPI.Models;
 
-namespace TestAPITests.Unit_Tests.Controllers
+namespace TestApi.UnitTests.Controllers
 {
     [TestClass]
     public class HomeControllerTests

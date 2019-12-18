@@ -38,7 +38,6 @@
         @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id = "Address" })
         @Html.ValidationMessageFor(m => m.Address)
     </div>
-    @Html.HiddenFor(m => m.DateCreated, new { @id = "DateCreated" })
 
     @Html.HiddenFor(m => m.CustomerId, new { @id = "CustomerId" })
 }
@@ -90,7 +89,6 @@
                 var lastName = document.getElementById("LastName").value;
                 var city = document.getElementById("City").value;
                 var address = document.getElementById("Address").value;
-                var date = document.getElementById("DateCreated").value;
 
                 var Customer = {
                     CustomerId: id,
@@ -98,7 +96,6 @@
                     LastName: lastName,
                     City: city,
                     Address: address,
-                    DateCreated: date
                 };
 
                 return Customer;

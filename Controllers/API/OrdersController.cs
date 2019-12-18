@@ -65,9 +65,6 @@ namespace TestAPI.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateOrder(Order order)
         {
-            if (order.Quantity <= 0)
-                return BadRequest();
-
             if (!ModelState.IsValid || order == null)
                 return BadRequest();
 
@@ -93,24 +90,24 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateOrder(int existingOrder, int customerId, int productId, int orderAmount)
+        public IHttpActionResult UpdateOrder(int existingOrderId, Order order)
         {
-            var orderFromDB = _context.Orders.GetOrderById(existingOrder);
-            var customer = _context.Customers.GetCustomerById(customerId);
-            var product = _context.Products.GetProductById(productId);
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var orderFromDB = _context.Orders.GetOrderById(existingOrderId);
+            var customer = _context.Customers.GetCustomerById(order.CustomerId);
+            var product = _context.Products.GetProductById(order.ProductId);
 
             if (orderFromDB == null || customer == null || product == null)
                 return NotFound();
 
-            if (orderAmount <= 0)
-                return BadRequest();
-
             else
             {
-                orderFromDB.ProductId = product.ProductId;
-                orderFromDB.CustomerId = customer.CustomerId;
-                orderFromDB.Quantity = orderAmount;
-                orderFromDB.TotalPrice = _context.Orders.CalculateTotalOrderValue(product, orderAmount);
+                orderFromDB.ProductId = order.ProductId;
+                orderFromDB.CustomerId = order.CustomerId;
+                orderFromDB.Quantity = order.Quantity;
+                orderFromDB.TotalPrice = _context.Orders.CalculateTotalOrderValue(product, order.Quantity);
             }
 
             _context.SaveChanges();

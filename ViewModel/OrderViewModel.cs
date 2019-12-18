@@ -23,7 +23,6 @@ namespace TestAPI.ViewModel
         [Required]
         public decimal TotalPrice { get; set; }
 
-        [Required]
         public DateTime TimeAdded { get; set; }
 
         public IEnumerable<Customer> Customers { get; set; }

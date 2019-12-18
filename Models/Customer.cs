@@ -32,7 +32,6 @@ namespace TestAPI.Models
         [Required(AllowEmptyStrings = false)]
         public string Address { get; set; }
 
-        [Required]
         public DateTime DateCreated { get; set; }
     }
 }

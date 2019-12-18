@@ -18,12 +18,12 @@ namespace TestAPI.Models
         public int ProductId { get; set; }
 
         [Required]
+        [Range(1, 500)]
         public int Quantity { get; set; }
 
         [Required]
         public decimal TotalPrice { get; set; }
 
-        [Required]
         public DateTime TimeAdded { get; set; }
 
         public Customer Customer { get; set; }

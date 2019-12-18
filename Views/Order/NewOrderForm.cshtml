@@ -42,8 +42,6 @@
         @Html.Label("Total Order Price") <br />
         <input id="TotalPrice" type="text" readonly />
     </div>
-
-    @Html.HiddenFor(m => m.TimeAdded, new { @id = "DateCreated" })
 }
 
 <button class="btn btn-primary" id="Submit" onclick=@functionName>Save</button>
@@ -121,14 +119,12 @@
                 var productId = document.getElementById("ProductId").value;
                 var quantity = document.getElementById("Quantity").value;
                 var totalAmount = 0;
-                var date = document.getElementById("DateCreated").value;
 
                 var order = {
                     CustomerId:  customerId,
                     ProductId: productId,
                     Quantity: parseInt(quantity),
                     TotalPrice: totalAmount,
-                    TimeAdded: date
                 };
 
                 return order;

@@ -21,7 +21,6 @@ namespace TestAPI.Models
         [Range(1, 500)]
         public int Quantity { get; set; }
 
-        [Required]
         public decimal TotalPrice { get; set; }
 
         public DateTime TimeAdded { get; set; }

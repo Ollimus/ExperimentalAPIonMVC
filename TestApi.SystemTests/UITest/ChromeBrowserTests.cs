@@ -54,7 +54,8 @@ namespace TestApi.SystemTests.UITest
                 element.SendKeys("Tulliportinkatu 11");
 
                 driver.FindElement(By.Id("Submit")).Click();
-                Thread.Sleep(2000);
+                WebDriverWait waiting = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                waiting.Until(ExpectedConditions.UrlMatches(customersUrl));
 
                 Assert.AreEqual(customersUrl, driver.Url.ToLower());
             }

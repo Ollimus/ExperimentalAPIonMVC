@@ -176,6 +176,22 @@ namespace TestApi.UnitTests
         }
 
         [TestMethod]
+        public void CreateProduct_PriceHasTwoDecimalsShouldBeWithinLimits_ReturnValidationSuccess()
+        {
+            decimal testableNumber = 211.21m;
+            Product product = new Product() { Price = testableNumber };
+
+            var validationContext = new ValidationContext(product, null, null)
+            {
+                MemberName = "Price"
+            };
+            var errors = new List<ValidationResult>();
+            var isValid = Validator.TryValidateProperty(product.Price, validationContext, errors);
+
+            Assert.IsTrue(isValid);
+        }
+
+        [TestMethod]
         public void CreateProduct_PricePropertyHasTooManyDecimalPlaces_ReturnError()
         {
             decimal testableNumber = 211.211m;

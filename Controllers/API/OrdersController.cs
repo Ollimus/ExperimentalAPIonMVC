@@ -116,9 +116,9 @@ namespace TestAPI.Controllers.API
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteOrder(int orderId)
+        public IHttpActionResult DeleteOrder(int Id)
         {
-            var order = _context.Orders.GetOrderById(orderId);
+            var order = _context.Orders.GetOrderById(Id);
 
             if (order == null)
                 return NotFound();

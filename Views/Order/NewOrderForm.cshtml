@@ -57,7 +57,6 @@
         var GetPrice = function () {
 
             var correctValue;
-
             var productPrice = document.getElementById('ProductId'),
                 price = document.getElementById('price');
 
@@ -68,7 +67,6 @@
             });
 
             price.value = parseFloat(correctValue);
-
         }
 
         var CalculateTotal = function () {
@@ -81,6 +79,9 @@
 
 
         $(document).ready(function () {
+
+            GetPrice();
+            CalculateTotal();
 
             document.getElementById("Submit").onclick = function () { @functionName };
 
@@ -98,7 +99,7 @@
                 });
             }
 
-            function UpdateProduct() {
+            function UpdateOrder() {
 
                 var order = GetOrder();
 
@@ -112,7 +113,6 @@
                     },
                 });
             }
-
 
             function GetOrder(){
                 var customerId = document.getElementById("CustomerId").value;

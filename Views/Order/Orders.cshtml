@@ -8,6 +8,7 @@
             <th scope="col">#</th>
             <th scope="col"># Customer</th>
             <th scope="col"># Product</th>
+            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total Price</th>
             <th scope="col">Time Added</th>
@@ -19,7 +20,7 @@
     </tbody>
 </table>
 
-@Html.ActionLink("New Order", "OrderManagement", null, new { @class = "btn btn-primary center-block" })
+@Html.ActionLink("New Order", "OrderManagement", null, new { @class = "btn btn-primary center-block", @id="CreateNewOrder" })
 
 
 
@@ -50,16 +51,17 @@
                             $(Orders).append(
                                 '<tr><td>' + value.Id + '</td>' +
                                 '<td>' + value.CustomerId + " - " + value.Customer.FirstName + " " + value.Customer.LastName + '</td>' +
-                                '<td>' + value.ProductId + " - " + value.Product.Producer +  " " + value.Product.Name + '</td>' +
+                                '<td>' + value.ProductId + " - " + value.Product.Producer + " " + value.Product.Name + '</td>' +
+                                '<td>' + value.Product.Price + '</td>' +
                                 '<td>' + value.Quantity + '</td>' +
                                 '<td>' + value.TotalPrice + '</td>' +
                                 '<td>' + value.TimeAdded + '</td>' +
-                                '<td><a href="ProductManagement/' + value.ProductId + '">View</a></td>' +
+                                '<td><a href="OrderManagement/' + value.Id + '">View</a></td>' +
                                 '<td><button class="js-delete" data-order-id="' + value.Id + '">Delete</button></td>');
                         })
 
 
-                        $("#Customers .js-delete").on("click", function () {
+                        $("#Orders .js-delete").on("click", function () {
                             if (confirm("Delete order?")) {
                                 $.ajax({
                                     url: "/api/orders/" + $(this).attr("data-order-id"),

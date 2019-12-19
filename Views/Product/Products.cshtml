@@ -19,7 +19,7 @@
     </tbody>
 </table>
 
-    @Html.ActionLink("New Product", "ProductManagement", null, new { @class = "btn btn-primary center-block" })
+    @Html.ActionLink("New Product", "ProductManagement", null, new { @class = "btn btn-primary center-block", @id = "CreateNewProduct" })
 
 
 
@@ -59,7 +59,7 @@
                         })
 
 
-                        $("#Customers .js-delete").on("click", function () {
+                        $("#Products .js-delete").on("click", function () {
                             if (confirm("Delete product?")) {
                                 $.ajax({
                                     url: "/api/products/" + $(this).attr("data-product-id"),

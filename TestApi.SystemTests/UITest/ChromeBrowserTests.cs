@@ -31,7 +31,7 @@ namespace TestApi.SystemTests.UITest
         }
 
         [TestMethod]
-        public void NavigateToCustomers_CreateCustomer_CheckIfCreatedCustomerExists()
+        public void NavigateToCustomers_CreateCustomer_WaitForRedirectAfterSuccess()
         {
             try
             {
@@ -57,6 +57,82 @@ namespace TestApi.SystemTests.UITest
                 Thread.Sleep(2000);
 
                 Assert.AreEqual(customersUrl, driver.Url.ToLower());
+            }
+
+            catch (Exception e)
+            {
+                Debug.Print("Error: " + e);
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void NavigateToProducts_CreateProduct_WaitForRedirectAfterSuccess()
+        {
+            try
+            {
+                driver.Navigate().GoToUrl("http://localhost:8080");
+                driver.FindElement(By.LinkText("Products")).Click();
+                string productsUrl = driver.Url.ToLower();
+
+                driver.FindElement(By.Id("CreateNewProduct")).Click();
+
+                IWebElement element = driver.FindElement(By.Id("Name"));
+                element.SendKeys("Iphone 6");
+
+                element = driver.FindElement(By.Id("Producer"));
+                element.SendKeys("Apple");
+
+                element = driver.FindElement(By.Id("Description"));
+                element.SendKeys("Modern phone for modern people.");
+
+                element = driver.FindElement(By.Id("Price"));
+                element.SendKeys("13.45");
+
+                element = driver.FindElement(By.Id("Stock"));
+                element.SendKeys("7");
+
+                driver.FindElement(By.Id("Submit")).Click();
+                WebDriverWait waiting = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                waiting.Until(ExpectedConditions.UrlMatches(productsUrl));
+
+                Assert.AreEqual(productsUrl, driver.Url.ToLower());
+            }
+
+            catch (Exception e)
+            {
+                Debug.Print("Error: " + e);
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void NavigateToProducts_CreateOrder_CheckIfCreatedProductExists()
+        {
+            try
+            {
+                driver.Navigate().GoToUrl("http://localhost:8080");
+                driver.FindElement(By.LinkText("Orders")).Click();
+                string orderUrl = driver.Url.ToLower();
+
+                driver.FindElement(By.Id("CreateNewOrder")).Click();
+
+                var customers = driver.FindElement(By.Id("CustomerId"));
+                var selectElement = new SelectElement(customers);
+                selectElement.SelectByValue("1");
+
+                var products = driver.FindElement(By.Id("ProductId"));
+                selectElement = new SelectElement(products);
+                selectElement.SelectByValue("1");
+
+                IWebElement element = driver.FindElement(By.Id("Quantity"));
+                element.SendKeys("5");
+
+                driver.FindElement(By.Id("Submit")).Click();
+                WebDriverWait waiting = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                waiting.Until(ExpectedConditions.UrlMatches(orderUrl));
+
+                Assert.AreEqual(orderUrl, driver.Url.ToLower());
             }
 
             catch (Exception e)

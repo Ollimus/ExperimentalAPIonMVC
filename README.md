@@ -7,7 +7,10 @@ New way:
 	3.1. If Package Manager Console is not on by default (depends on the version used), go to >Tools, >NuGet Package Manager and select Package Manager Console.
 4. At this point, you should get a message saying about missing packages, install them.
 5. Type "Update-Database" into Package Manager Console without quotations. This will create a local SQL database on the local machine using the code-first method's migrations.
-6. Project should be now usable.
+6. Project might cause an error during the first time running, it is recommend it is restarted after downloading missing packages.
+
+**NOTE:**
+If UiTest crashes during their tests, it might leave ChromeDriver.exe running in the background. You need to use task manager to close this down if rerunning the test causes an error.
 
 
 Every test project can be run separately. Integration tests copy and use a separate database for their testing.

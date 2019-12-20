@@ -19,13 +19,12 @@ using System.Web.Http;
 namespace TestApi.UnitTests.Controllers
 {
     [TestClass]
-    public class ProductsControllerTest
+    public class ProductsControllerTests
     {
         private ProductsController _controller;
         Mock<IProductRepository> _mockRepository;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public ProductsControllerTests()
         {
             _mockRepository = new Mock<IProductRepository>();
             var mockContext = new Mock<IUnitOfWork>();
@@ -34,7 +33,6 @@ namespace TestApi.UnitTests.Controllers
 
             _controller = new ProductsController(mockContext.Object);
         }
-
 
         [TestMethod]
         public void GetProducts_GetAllProducts_ReturnsAllProducts()

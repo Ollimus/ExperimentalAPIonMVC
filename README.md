@@ -8,3 +8,5 @@ Setting up the project
 4. Type "Update-Database" into Package Manager Console without quotations. This will create a local SQL database on the local machine using the code-first method's migrations.
 	4.1. There is a known bug that might cause "File not found" or similar error. In this case, remove App_Data folder inside the project as well as the project root folder. After that re-create the app_data folder and run the command again.
 5. You can now run the program.
+
+The Ui Tests in the project only test using Chrome due to time constraint. It requires an actual website to be ran while in testing so it uses your Iis Express to host the project so it is able to run tests succesfully. This means that the Ui tests only work on windows based computers.

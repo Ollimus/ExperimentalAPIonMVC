@@ -16,6 +16,7 @@ namespace TestApi.SystemTests.UITest
         public ChromeBrowserTests() : base("TestApi") { }
 
         public static IWebDriver driver;
+        private string localHostUrl = SeleniumTest.GetBaseUrl();
 
         [ClassInitialize]
         public static void SetUpDriver(TestContext testContext)
@@ -35,7 +36,7 @@ namespace TestApi.SystemTests.UITest
         {
             try
             {
-                driver.Navigate().GoToUrl("http://localhost:8080");
+                driver.Navigate().GoToUrl(localHostUrl);
                 driver.FindElement(By.LinkText("Customers")).Click();
                 string customersUrl = driver.Url.ToLower();
 
@@ -72,7 +73,7 @@ namespace TestApi.SystemTests.UITest
         {
             try
             {
-                driver.Navigate().GoToUrl("http://localhost:8080");
+                driver.Navigate().GoToUrl(localHostUrl);
                 driver.FindElement(By.LinkText("Products")).Click();
                 string productsUrl = driver.Url.ToLower();
 
@@ -112,7 +113,7 @@ namespace TestApi.SystemTests.UITest
         {
             try
             {
-                driver.Navigate().GoToUrl("http://localhost:8080");
+                driver.Navigate().GoToUrl(localHostUrl);
                 driver.FindElement(By.LinkText("Orders")).Click();
                 string orderUrl = driver.Url.ToLower();
 

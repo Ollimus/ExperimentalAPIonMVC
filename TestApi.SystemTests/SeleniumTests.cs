@@ -12,19 +12,15 @@ namespace TestApi.SystemTests
     [TestClass]
     public abstract class SeleniumTest
     {
-
         //const int iisPort = 2020;
         private string _applicationName;
         private static Process _iisProcess;
 
-        public SeleniumTest()
-        {
-            StartIIS();
-        }
-
         protected SeleniumTest(string applicationName)
         {
             _applicationName = applicationName;
+
+            StartIIS();
         }
 
         [ClassCleanup]

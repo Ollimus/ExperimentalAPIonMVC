@@ -80,7 +80,7 @@ namespace TestAPI.Controllers.API
                 ProductId = order.ProductId,
                 Quantity = order.Quantity,
                 TotalPrice = _context.Orders.CalculateTotalOrderValue(product, order.Quantity),
-                TimeAdded = DateTime.Now
+                TimeAdded = DateTime.Now.Date
             };
 
             _context.Orders.Add(createNewOrder);

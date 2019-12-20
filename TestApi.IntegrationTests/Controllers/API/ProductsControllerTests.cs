@@ -112,7 +112,7 @@ namespace TestAPITests.IntegrationTests.Controllers
         {
             using (new TransactionScope())
             {
-                string invalidProducer = "Apple";
+                string invalidProducer = "";
                 Product product = CreateTestObjects.CreateNewProduct("G15", "Keyboard for gaming.", "Logitech", 125.4m, 2);
 
                 _context.Products.Add(product);
